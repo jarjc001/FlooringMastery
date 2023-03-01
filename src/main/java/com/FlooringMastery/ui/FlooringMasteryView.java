@@ -23,16 +23,19 @@ public class FlooringMasteryView {
      * @return - an int of the user's choice
      */
     public int printMainMenu(){
-        io.print("=^..^=   =^..^=   Main Menu    =^..^=    =^..^=");
-        io.print("1. Add a DVD to the Library");
-        io.print("2. Remove a DVD from the Library");
-        io.print("3. Edit the information for an existing DVD in the Library");
-        io.print("4. List the DVDs in the Library");
-        io.print("5. Display the information for a particular DVD");
-        io.print("6. Search for a DVD by title");
-        io.print("7. Exit");
+        io.print("");
+        io.print("-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-");
+        io.print("<<Flooring Program>>");
+        io.print("1. Display Orders");
+        io.print("2. Add an Order");
+        io.print("3. Edit an Order");
+        io.print("4. Remove an Order");
+        io.print("5. Export All Data");
+        io.print("6. Quit");
+        io.print("");
+        io.print("-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-");
 
-        return io.readInt("Please choose from above:", 1, 7);
+        return io.readInt("", 1, 6);
     }
 
 
