@@ -1,7 +1,15 @@
 package com.FlooringMastery;
 
-public class Main {
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class App {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+        appContext.scan("com.FlooringMastery");
+        appContext.refresh();
+
+
     }
 }
