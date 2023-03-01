@@ -44,6 +44,8 @@ public class Order {
         this.orderDate = orderDate;
         this.orderInfo = orderInfo;
 
+        configOrderInfo();
+
         this.orderNumber = overallOrderNumber++;
     }
 
@@ -73,6 +75,7 @@ public class Order {
         this.area = area;
         this.orderDate = orderDate;
         this.orderInfo = orderInfo;
+        configOrderInfo();
 
         if(orderNumber>=overallOrderNumber){
             overallOrderNumber = orderNumber+1;
@@ -123,6 +126,15 @@ public class Order {
     public void setOrderInfo(OrderInfo orderInfo) { ///edit so input is order by creating a new one?
         this.orderInfo = orderInfo;
     }
+
+
+
+    public void configOrderInfo(){
+        this.orderInfo = new OrderInfo(this.area,this.productType,this.state);
+    }
+
+
+
 
 
     /**for testing*/

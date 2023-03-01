@@ -4,24 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/OrderInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Tax.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryViewImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIOConsoleImpl.java" afterDir="false" />
+    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="user io and dto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryViewImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIOConsoleImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIOConsoleImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +55,26 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.FlooringMastery.App" />
+      <module name="FlooringMastery" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.FlooringMastery.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -73,6 +84,18 @@
       <option name="presentableId" value="Default" />
       <updated>1677674491978</updated>
     </task>
+    <task id="LOCAL-00001" summary="user io and dto">
+      <created>1677685955878</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677685955878</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="user io and dto" />
+    <option name="LAST_COMMIT_MESSAGE" value="user io and dto" />
   </component>
 </project>

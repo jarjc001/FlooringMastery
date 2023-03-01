@@ -65,8 +65,8 @@ public interface UserIO {
 
         /**
          * Takes in a String prompt to display to the user on the console,
-         * Will then Read a input the user enters into the console,
-         * then will return it as a LocalDate
+         * Will then Read a String input the user enters into the console,
+         * then will parse input into LocalDate and return it.
          * @param prompt - String prompt to be displayed on console
          * @return - the answer of the prompt as a BigDecimal
          */
