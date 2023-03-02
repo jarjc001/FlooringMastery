@@ -2,8 +2,6 @@ package com.FlooringMastery.dao;
 
 import com.FlooringMastery.dto.Order;
 import com.FlooringMastery.dto.FileHeaders;
-import com.FlooringMastery.dto.Product;
-import com.FlooringMastery.dto.Tax;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,7 +44,7 @@ public interface FlooringMasteryDao {
     /**Used to amend a ListArray from an Order file into a Backup.txt file
      * @param splitLineList ListArray created from readFile method
      */
-    void writeBackupFile(List<String[]> splitLineList, LocalDate date);
+    void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date);
 
 
 

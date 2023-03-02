@@ -50,6 +50,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     public List<String[]> readFile(String fileName, FileHeaders fileType) throws FlooringMasteryPersistenceException{
         List<String[]> splitLineList = new ArrayList<String[]>();
         File dataIn;
+        //choose the file being read based on file type
         switch (fileType){
             case TAX:
                 dataIn = new File("./Files/Data/Taxes.txt");
@@ -73,7 +74,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             do{
                 lineFromLine = br.readLine();
                 if(lineFromLine != null){
-                    //Adds the split file line to the List
+                    //Adds the split line to the ArrayList
                     splitLineList.add(lineFromLine.split(DELIMITER));
                 }
             }while(lineFromLine != null);
@@ -156,7 +157,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     @Override
     public void writeOrderFile(String fileName, Map<Integer, Order> map){
-        File dataOut = dataOut = new File("./Files/Orders/"+fileName+".txt");
+        File dataOut = new File("./Files/Orders/"+fileName+".txt");
 
         FileWriter fileWriter;
 
@@ -191,32 +192,34 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public void writeBackupFile(List<String[]> splitLineList, LocalDate date){
+    public void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date){
 
-        File dataOut = dataOut = new File("./Files/Backup/DataExport.txt");
+        File dataOut = new File("./Files/Backup/DataExport.txt");
 
         FileWriter fileWriter;
 
         try{
-            fileWriter = new FileWriter(dataOut);
+            fileWriter = new FileWriter(dataOut,true);
             PrintWriter pr = new PrintWriter(fileWriter);
-
-            //Writes header of order file
-            pr.println(FileHeaders.ORDER);
 
             for(String[] order:splitLineList){
                 //writes each Order Object into its own line
-                pr.println(order.getOrderNumber()+DELIMITER
-                        +order.getState().getStateName()+DELIMITER
-                        +order.getState().getTaxRate()+DELIMITER
-                        +order.getProductType().getProductType()+DELIMITER
-                        +order.getArea()+DELIMITER
-                        +order.getProductType().getCostPerSquareFoot()+DELIMITER
-                        +order.getProductType().getLaborCostPerSquareFoot()+DELIMITER
-                        +order.getOrderCal().getMaterialCost()+DELIMITER
-                        +order.getOrderCal().getLaborCost()+DELIMITER
-                        +order.getOrderCal().getTax()+DELIMITER
-                        +order.getOrderCal().getTotal());
+                pr.println(order[0]+DELIMITER   //OrderNumber
+                        +order[1]+DELIMITER     //CustomerName
+                        +order[2]+DELIMITER     //State
+                        +order[3]+DELIMITER     //TaxRate
+                        +order[4]+DELIMITER     //ProductType
+                        +order[5]+DELIMITER     //Area
+                        +order[6]+DELIMITER     //CostPerSquareFoot
+                        +order[7]+DELIMITER     //LaborCostPerSquareFoot
+                        +order[8]+DELIMITER     //MaterialCost
+                        +order[9]+DELIMITER     //LaborCost
+                        +order[10]+DELIMITER     //Tax
+                        +order[11]+DELIMITER     //Total
+                        +date.getMonthValue()+"-"+ //date in MMddyyyy
+                        date.getDayOfMonth()+"-"+
+                        date.getYear());
+
             }
             pr.flush();
             pr.close();
