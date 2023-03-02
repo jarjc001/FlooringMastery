@@ -43,7 +43,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public List<String[]> readFile(String fileName) throws FlooringMasteryPersistenceException{
+    public List<String[]> readFile(String fileName, UnMarshallHeaders fileType) throws FlooringMasteryPersistenceException{
         List<String[]> splitLineList = new ArrayList<String[]>();
         File dataIn = new File(fileName);
         FileReader fileReader;
@@ -58,6 +58,11 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                 if(lineFromLine != null){
                     //Adds the split file line to the List
                     splitLineList.add(lineFromLine.split(DELIMITER));
+
+
+                    //add a switch here?
+
+
                 }
             }while(lineFromLine != null);
 
@@ -76,7 +81,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public void writeFile(String fileName, Map<> map){
+    public void writeOrderFile(String fileName, Map<Integer, Order> map){
         File dataOut = new File(fileName);
         FileWriter fileWriter;
 
