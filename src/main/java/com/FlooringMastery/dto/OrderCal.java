@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**A DTO to hold the order info that is calculated by other variables in Order.
  * To make it easier to read the information*/
-public class OrderInfo {
+public class OrderCal {
 
     /**Declaration of variables*/
     private BigDecimal materialCost;
@@ -21,8 +21,8 @@ public class OrderInfo {
      * @param productType Product object
      * @param state Tax object
      */
-    public OrderInfo(BigDecimal area, Product productType,
-                     Tax state) {
+    public OrderCal(BigDecimal area, Product productType,
+                    Tax state) {
         this.materialCost = calculateMaterialCost(area,productType);
         this.laborCost = calculateLaborCost(area,productType);
         this.tax = calculateTax(this.materialCost,this.laborCost,state);
@@ -44,8 +44,6 @@ public class OrderInfo {
         return total;
     }
 
-
-    //Setters
 
 
     /** Calculates the material cost using:
@@ -98,8 +96,8 @@ public class OrderInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderInfo orderInfo = (OrderInfo) o;
-        return  Objects.equals(materialCost, orderInfo.materialCost) && Objects.equals(laborCost, orderInfo.laborCost) && Objects.equals(tax, orderInfo.tax) && Objects.equals(total, orderInfo.total);
+        OrderCal orderCal = (OrderCal) o;
+        return  Objects.equals(materialCost, orderCal.materialCost) && Objects.equals(laborCost, orderCal.laborCost) && Objects.equals(tax, orderCal.tax) && Objects.equals(total, orderCal.total);
     }
 
     /**for testing*/

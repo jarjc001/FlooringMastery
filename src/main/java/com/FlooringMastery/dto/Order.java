@@ -13,7 +13,7 @@ public class Order {
     private Product productType;
     private BigDecimal area;
     private LocalDate orderDate;
-    private OrderInfo orderInfo;
+    private OrderCal orderCal;
 
     public static int overallOrderNumber =1;
 
@@ -31,20 +31,20 @@ public class Order {
      * @param productType Product Type
      * @param area Area
      * @param orderDate Order Date
-     * @param orderInfo Object holding the info of order determined by other variables
+     * @param orderCal Object holding the info of order determined by other variables
      */
     public Order(String customerName, Tax state,
                  Product productType, BigDecimal area,
-                 LocalDate orderDate, OrderInfo orderInfo) {
+                 LocalDate orderDate, OrderCal orderCal) {
 
         this.customerName = customerName;
         this.state = state;
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        this.orderInfo = orderInfo;
+        this.orderCal = orderCal;
 
-        configOrderInfo();
+        configOrderCal();
 
         this.orderNumber = overallOrderNumber++;
     }
@@ -61,12 +61,12 @@ public class Order {
      * @param productType Product Type
      * @param area Area
      * @param orderDate Order Date
-     * @param orderInfo Object holding the info of order determined by other variables
+     * @param orderCal Object holding the info of order determined by other variables
      */
     public Order(int orderNumber, String customerName,
                  Tax state, Product productType,
                  BigDecimal area, LocalDate orderDate,
-                 OrderInfo orderInfo) {
+                 OrderCal orderCal) {
 
         this.orderNumber = orderNumber;
         this.customerName = customerName;
@@ -74,8 +74,8 @@ public class Order {
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        this.orderInfo = orderInfo;
-        configOrderInfo();
+        this.orderCal = orderCal;
+        configOrderCal();
 
         if(orderNumber>=overallOrderNumber){
             overallOrderNumber = orderNumber+1;
@@ -103,8 +103,8 @@ public class Order {
     public LocalDate getOrderDate() {
         return orderDate;
     }
-    public OrderInfo getOrderInfo() {
-        return orderInfo;
+    public OrderCal getOrderInfo() {
+        return orderCal;
     }
 
 
@@ -116,21 +116,25 @@ public class Order {
     }
     public void setState(Tax state) {
         this.state = state;
+        configOrderCal();
     }
     public void setProductType(Product productType) {
         this.productType = productType;
+        configOrderCal();
     }
     public void setArea(BigDecimal area) {
         this.area = area;
-    }
-    public void setOrderInfo(OrderInfo orderInfo) { ///edit so input is order by creating a new one?
-        this.orderInfo = orderInfo;
+        configOrderCal();
     }
 
+//    public void setOrderInfo(OrderInfo orderInfo) { ///edit so input is order by creating a new one?
+//        this.orderInfo = orderInfo;
+//    }
 
 
-    public void configOrderInfo(){
-        this.orderInfo = new OrderInfo(this.area,this.productType,this.state);
+    /**To calculate the Order info when a new Product type, state or Area are added to order*/
+    public void configOrderCal(){
+        this.orderCal = new OrderCal(this.area,this.productType,this.state);
     }
 
 
@@ -143,13 +147,13 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderNumber == order.orderNumber && Objects.equals(customerName, order.customerName) && Objects.equals(state, order.state) && Objects.equals(productType, order.productType) && Objects.equals(area, order.area) && Objects.equals(orderDate, order.orderDate) && Objects.equals(orderInfo, order.orderInfo);
+        return orderNumber == order.orderNumber && Objects.equals(customerName, order.customerName) && Objects.equals(state, order.state) && Objects.equals(productType, order.productType) && Objects.equals(area, order.area) && Objects.equals(orderDate, order.orderDate) && Objects.equals(orderCal, order.orderCal);
     }
 
     /**for testing*/
     @Override
     public int hashCode() {
-        return Objects.hash(orderNumber, customerName, state, productType, area, orderDate, orderInfo);
+        return Objects.hash(orderNumber, customerName, state, productType, area, orderDate, orderCal);
     }
 
 
@@ -162,7 +166,7 @@ public class Order {
                 ", productType='" + productType.toString() + '\'' +
                 ", area=" + area +
                 ", orderDate=" + orderDate +
-                ", orderInfo=" + orderInfo.toString() +
+                ", orderInfo=" + orderCal.toString() +
                 '}';
     }
 }
