@@ -31,19 +31,17 @@ public class Order {
      * @param productType Product Type
      * @param area Area
      * @param orderDate Order Date
-     * @param orderCal Object holding the info of order determined by other variables
      */
     public Order(String customerName, Tax state,
                  Product productType, BigDecimal area,
-                 LocalDate orderDate, OrderCal orderCal) {
+                 LocalDate orderDate) {
 
         this.customerName = customerName;
         this.state = state;
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        this.orderCal = orderCal;
-
+        //will calculate the rest of the order info
         configOrderCal();
 
         this.orderNumber = overallOrderNumber++;
@@ -61,12 +59,10 @@ public class Order {
      * @param productType Product Type
      * @param area Area
      * @param orderDate Order Date
-     * @param orderCal Object holding the info of order determined by other variables
      */
     public Order(int orderNumber, String customerName,
                  Tax state, Product productType,
-                 BigDecimal area, LocalDate orderDate,
-                 OrderCal orderCal) {
+                 BigDecimal area, LocalDate orderDate) {
 
         this.orderNumber = orderNumber;
         this.customerName = customerName;
@@ -74,7 +70,7 @@ public class Order {
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        this.orderCal = orderCal;
+        //will calculate the rest of the order info
         configOrderCal();
 
         if(orderNumber>=overallOrderNumber){
@@ -102,8 +98,9 @@ public class Order {
     }
     public LocalDate getOrderDate() {
         return orderDate;
-    }
-    public OrderCal getOrderInfo() {
+    }  ///<-add a print tto string one maybe?
+
+    public OrderCal getOrderCal() {
         return orderCal;
     }
 
@@ -127,16 +124,20 @@ public class Order {
         configOrderCal();
     }
 
-//    public void setOrderInfo(OrderInfo orderInfo) { ///edit so input is order by creating a new one?
-//        this.orderInfo = orderInfo;
-//    }
+
+    /**
+     * Used when accessing a new order file, will reset the overall
+     * Order Number to 1 again
+     */
+    public static void resetOverallOrderNumber(){
+        overallOrderNumber =1;
+    }
 
 
     /**To calculate the Order info when a new Product type, state or Area are added to order*/
     public void configOrderCal(){
         this.orderCal = new OrderCal(this.area,this.productType,this.state);
     }
-
 
 
 

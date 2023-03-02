@@ -1,9 +1,12 @@
 package com.FlooringMastery.dao;
 
 import com.FlooringMastery.dto.*;
+import org.springframework.core.OrderComparator;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +46,9 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public List<String[]> readFile(String fileName, UnMarshallHeaders fileType) throws FlooringMasteryPersistenceException{
+    public List<String[]> readFile(String fileName, FileHeaders fileType) throws FlooringMasteryPersistenceException{
         List<String[]> splitLineList = new ArrayList<String[]>();
+            /// add an if to get the location of the files
         File dataIn = new File(fileName);
         FileReader fileReader;
         String[] lineArray;
@@ -69,14 +73,78 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
         } catch (FileNotFoundException e) {
             throw new FlooringMasteryPersistenceException("Could not find File",e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FlooringMasteryPersistenceException("errer",e);
         }
         return splitLineList;
     }
 
 
+    @Override
+    public void unmarshallTax(List<String[]> splitLineList){
+        //Clears the map so only incoming info is in it
+        stateTaxMap.clear();
 
-   // unmarshall for product, tax, order  use enum
+        for(String[] state: splitLineList) {
+            //goes through every entry in the List Array and adds them to the Map
+            String stateAbbreviation = state[0];
+            String stateName = state[1];
+            BigDecimal taxRate = new BigDecimal(state[2]);
+
+            Tax inputStateTax = new Tax(stateAbbreviation,stateName,taxRate);
+
+            stateTaxMap.put(stateAbbreviation,inputStateTax);
+        }
+    }
+
+    @Override
+    public void unmarshallProduct(List<String[]> splitLineList){
+        //Clears the map so only incoming info is in it
+        productTypeMap.clear();
+
+        for(String[] product: splitLineList) {
+            //goes through every entry in the List Array and adds them to the Map
+            String productType = product[0];
+            BigDecimal costPerSquareFoot = new BigDecimal(product[1]);
+            BigDecimal laborCostPerSquareFoot = new BigDecimal(product[2]);
+
+            Product inputProductType = new Product(productType,costPerSquareFoot,laborCostPerSquareFoot);
+
+            productTypeMap.put(productType,inputProductType);
+        }
+    }
+
+    @Override
+    public void unmarshallOrder(List<String[]> splitLineList, LocalDate date){
+        //Clears the map so only incoming info is in it
+        orderMap.clear();
+        Order.resetOverallOrderNumber();
+
+        for(String[] order: splitLineList) {
+            //goes through every entry in the List Array and adds them to the Map
+            int orderNumber = Integer.parseInt(order[0]);
+            String customerName = order[1];
+            BigDecimal area = new BigDecimal(order[5]);
+
+            ///get state object
+            String state = order[2];
+            Tax inputStateTax = stateTaxMap.get(state);
+
+            //create product object
+            String productType = order[4];
+            Product inputProductType = productTypeMap.get(productType);
+
+            //creates order Object
+            Order inputOrder = new Order(orderNumber,customerName,inputStateTax,inputProductType,area,date);
+
+
+            orderMap.put(orderNumber,inputOrder);
+        }
+    }
+
+
+
+
+
 
 
 
@@ -89,13 +157,22 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             fileWriter = new FileWriter(dataOut);
             PrintWriter pr = new PrintWriter(fileWriter);
 
-            for(Dvd dvd:dvdLibrary.values()){
-                pr.println(dvd.getTitle()+DELIMITER
-                        +dvd.getDvdInfo().getReleaseDate()+DELIMITER
-                        +dvd.getDvdInfo().getRatingMPAA()+DELIMITER
-                        +dvd.getDvdInfo().getDirector()+DELIMITER
-                        +dvd.getDvdInfo().getStudio()+DELIMITER
-                        +dvd.getDvdInfo().getUserNotes()+DELIMITER);
+            //Writes header of order file
+            pr.println(FileHeaders.ORDER);
+
+            for(Order order:map.values()){
+                //writes each Order Object into its own line
+                pr.println(order.getOrderNumber()+DELIMITER
+                        +order.getState().getStateName()+DELIMITER
+                        +order.getState().getTaxRate()+DELIMITER
+                        +order.getProductType().getProductType()+DELIMITER
+                        +order.getArea()+DELIMITER
+                        +order.getProductType().getCostPerSquareFoot()+DELIMITER
+                        +order.getProductType().getLaborCostPerSquareFoot()+DELIMITER
+                        +order.getOrderCal().getMaterialCost()+DELIMITER
+                        +order.getOrderCal().getLaborCost()+DELIMITER
+                        +order.getOrderCal().getTax()+DELIMITER
+                        +order.getOrderCal().getTotal());
             }
             pr.flush();
             pr.close();
@@ -105,15 +182,12 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-
-
-
-
-
-
-
+    public void writeBackupFile(String fileName, Map<Integer, Order> map){
 
     }
+
+
+
 
 
 

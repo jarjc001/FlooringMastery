@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="basic controller &#10;with main menu">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryPersistenceException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/UnMarshallHeaders.java" afterDir="false" />
+    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="edited read">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/OrderInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/OrderCal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/UnMarshallHeaders.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/FileHeaders.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,13 +104,44 @@
       <option name="project" value="LOCAL" />
       <updated>1677689442959</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="started read and write file&#10;added UnMarshallHeaders enum&#10;added FlooringMasteryPersistenceException">
+      <created>1677715266043</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677715266043</updated>
+    </task>
+    <task id="LOCAL-00005" summary="edited read">
+      <created>1677715776523</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677715776523</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="user io and dto" />
     <MESSAGE value="basic controller &#10;Spring DI implemented" />
     <MESSAGE value="basic controller &#10;with main menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic controller &#10;with main menu" />
+    <MESSAGE value="started read and write file&#10;added UnMarshallHeaders enum&#10;added FlooringMasteryPersistenceException" />
+    <MESSAGE value="edited read" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited read" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java</url>
+          <line>184</line>
+          <properties class="com.FlooringMastery.dao.FlooringMasteryDaoFileImpl" method="writeBackupFile">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

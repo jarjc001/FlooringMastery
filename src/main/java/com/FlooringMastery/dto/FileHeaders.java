@@ -1,10 +1,10 @@
 package com.FlooringMastery.dto;
 
 /**Enums holding the header of each type of .txt file
- * and the number of columns each one has. The 3 types are:
- * Taxes.txt, Products.txt, and Orders
+ * and the number of columns each one has. The 4 types are:
+ * Taxes.txt, Products.txt, Orders, and Backup
  */
-public enum UnMarshallHeaders {
+public enum FileHeaders {
     TAX("State,StateName,TaxRate"),
     PRODUCT("ProductType,CostPerSquareFoot,LaborCostPerSquareFoot"),
     ORDER(("OrderNumber,CustomerName," +
@@ -12,26 +12,35 @@ public enum UnMarshallHeaders {
             "Area,CostPerSquareFoot," +
             "LaborCostPerSquareFoot," +
             "MaterialCost,LaborCost," +
-            "Tax,Total"));
+            "Tax,Total")),
+    BACKUP("OrderNumber,CustomerName," +
+            "State,TaxRate,ProductType," +
+            "Area,CostPerSquareFoot," +
+            "LaborCostPerSquareFoot," +
+            "MaterialCost,LaborCost," +
+            "Tax,Total,OrderDate");
+
+
 
 
 
     private String header;
+
     private int columns;
 
-    UnMarshallHeaders(String header){
+    FileHeaders(String header){
         this.header = header;
         this.columns = this.header.split(",").length;
     }
 
-    /**Returns the header of the given .txt file type (TAX, PRODUCT or ORDER)
+    /**Returns the header of the given .txt file type (TAX, PRODUCT, ORDER or BACKUP)
      * @return header
      */
     public String getHeader() {
         return header;
     }
 
-    /**Returns the number of columns in header of the given .txt file type (TAX, PRODUCT or ORDER)
+    /**Returns the number of columns in header of the given .txt file type (TAX, PRODUCT, ORDER or BACKUP)
      * @return number of columns in header
      */
     public int getColumns() {
