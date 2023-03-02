@@ -13,12 +13,9 @@ public interface FlooringMasteryDao {
 
 
     /**Opens fileName.txt file. It then transfers info into a ArrayList to hold in memory.
-     * Depending  on which file is being read:
-     * stateTaxMap for Taxes.txt,
-     * productTypeMap for Products,
-     * and any orders file into orderMap.
-     * @param fileName name of the file being read
-     * @param fileType the tye of file being read (Tax, Product or Order)
+     * The types pf file  on which file is being read:
+     * @param fileName name of the file being read (only needed by Order files)
+     * @param fileType the type of file being read (Tax, Product or Order)
      * @return ArrayList of String Arrays of the split up file lines
      */
     List<String[]> readFile(String fileName, FileHeaders fileType)throws FlooringMasteryPersistenceException;
@@ -46,11 +43,10 @@ public interface FlooringMasteryDao {
      */
     void writeOrderFile(String fileName, Map<Integer, Order> map);
 
-    /**Used to write all Orders into a Backup.txt file
-     * @param fileName name of the file being written
-     * @param map contating the info of the orders of that date
+    /**Used to amend a ListArray from an Order file into a Backup.txt file
+     * @param splitLineList ListArray created from readFile method
      */
-    void writeBackupFile(String fileName, Map<Integer, Order> map);
+    void writeBackupFile(List<String[]> splitLineList, LocalDate date);
 
 
 

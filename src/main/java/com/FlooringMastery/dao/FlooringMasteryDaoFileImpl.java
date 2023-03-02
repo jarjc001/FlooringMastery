@@ -44,12 +44,25 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
      *.The Value is the Product object containing its name, cost and labour per square ft*/
     private Map<String, Product> productTypeMap = new HashMap<>();
 
+    //<<<<read files>>>>>
 
     @Override
     public List<String[]> readFile(String fileName, FileHeaders fileType) throws FlooringMasteryPersistenceException{
         List<String[]> splitLineList = new ArrayList<String[]>();
-            /// add an if to get the location of the files
-        File dataIn = new File(fileName);
+        File dataIn;
+        switch (fileType){
+            case TAX:
+                dataIn = new File("./Files/Data/Taxes.txt");
+                break;
+            case PRODUCT:
+                dataIn = new File("./Files/Data/Products.txt");
+                break;
+            case ORDER:
+                dataIn = new File("./Files/Orders/"+fileName+".txt");
+                break;
+            default:
+                return null;
+        }
         FileReader fileReader;
         String[] lineArray;
         try{
@@ -62,18 +75,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                 if(lineFromLine != null){
                     //Adds the split file line to the List
                     splitLineList.add(lineFromLine.split(DELIMITER));
-
-
-                    //add a switch here?
-
-
                 }
             }while(lineFromLine != null);
 
         } catch (FileNotFoundException e) {
-            throw new FlooringMasteryPersistenceException("Could not find File",e);
+            throw new FlooringMasteryPersistenceException("Could not find File - Check name of "+fileName,e);
         } catch (IOException e) {
-            throw new FlooringMasteryPersistenceException("errer",e);
+            throw new FlooringMasteryPersistenceException("I/O error",e);
         }
         return splitLineList;
     }
@@ -143,14 +151,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
 
-
-
-
+    //<<<<write files>>>>>
 
 
     @Override
     public void writeOrderFile(String fileName, Map<Integer, Order> map){
-        File dataOut = new File(fileName);
+        File dataOut = dataOut = new File("./Files/Orders/"+fileName+".txt");
+
         FileWriter fileWriter;
 
         try{
@@ -182,8 +189,44 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-    public void writeBackupFile(String fileName, Map<Integer, Order> map){
 
+    @Override
+    public void writeBackupFile(List<String[]> splitLineList, LocalDate date){
+
+        File dataOut = dataOut = new File("./Files/Backup/DataExport.txt");
+
+        FileWriter fileWriter;
+
+        try{
+            fileWriter = new FileWriter(dataOut);
+            PrintWriter pr = new PrintWriter(fileWriter);
+
+            //Writes header of order file
+            pr.println(FileHeaders.ORDER);
+
+            for(String[] order:splitLineList){
+                //writes each Order Object into its own line
+                pr.println(order.getOrderNumber()+DELIMITER
+                        +order.getState().getStateName()+DELIMITER
+                        +order.getState().getTaxRate()+DELIMITER
+                        +order.getProductType().getProductType()+DELIMITER
+                        +order.getArea()+DELIMITER
+                        +order.getProductType().getCostPerSquareFoot()+DELIMITER
+                        +order.getProductType().getLaborCostPerSquareFoot()+DELIMITER
+                        +order.getOrderCal().getMaterialCost()+DELIMITER
+                        +order.getOrderCal().getLaborCost()+DELIMITER
+                        +order.getOrderCal().getTax()+DELIMITER
+                        +order.getOrderCal().getTotal());
+            }
+            pr.flush();
+            pr.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+        //matbe just use lis<Array> to print strings of data, don't need to convert back and forth
     }
 
 

@@ -77,6 +77,7 @@ public class UserIOConsoleImpl implements UserIO {
 
         }catch (Exception e){
             this.print("Input not in date format (MM/DD/YYYY), Try again");
+            //make runtime exception
         }
         return ld;
 
