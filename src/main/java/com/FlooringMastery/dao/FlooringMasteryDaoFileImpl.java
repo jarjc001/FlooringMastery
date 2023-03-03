@@ -122,7 +122,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
         List<String[]> splitLineList = readFile(fileName,FileHeaders.TAX);
         stateTaxMap.clear();
 
+
         for(String[] state: splitLineList) {
+            //tests if all lines are right format, wil skip line if something is wrong
+            if(state.length != 3){
+                continue;
+            }
+
             //goes through every entry in the List Array and adds them to the Map
             String stateAbbreviation = state[0];
             String stateName = state[1];
@@ -141,6 +147,10 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
         productTypeMap.clear();
 
         for(String[] product: splitLineList) {
+            //tests if all lines are right format, wil skip line if something is wrong
+            if(product.length != 3){
+                continue;
+            }
             //goes through every entry in the List Array and adds them to the Map
             String productType = product[0];
             BigDecimal costPerSquareFoot = new BigDecimal(product[1]);
@@ -159,6 +169,11 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
         orderMap.clear();
 
         for(String[] order: splitLineList) {
+            //tests if all lines are right format, wil skip line if something is wrong
+            if(order.length != 12){
+                continue;
+            }
+
             //goes through every entry in the List Array and adds them to the Map
             int orderNumber = Integer.parseInt(order[0]);
             String customerName = order[1];

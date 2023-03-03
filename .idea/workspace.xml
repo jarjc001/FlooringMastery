@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="alot">
+    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="got add to work&#10;have to add show detail to it tho">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Files/Orders/Orders_12122030.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Orders/Orders_12122030.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Files/Orders/Orders_12122033.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +151,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677851761703</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="got add to work&#10;have to add show detail to it tho">
+      <created>1677852475763</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1677852475763</updated>
+    </task>
+    <task id="LOCAL-00010" summary="got add to work&#10;have to add show detail to it tho">
+      <created>1677863174524</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677863174524</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -163,17 +178,7 @@
     <MESSAGE value="Added unmarshall methods for the 3 types of map types.&#10;edited Order dto, so you don't have to input OrderCal object in constructor&#10;Created a static method in Order to reset overallOrderNumber to 1, this was due to a change in the project details" />
     <MESSAGE value="added files folder" />
     <MESSAGE value="alot" />
-    <option name="LAST_COMMIT_MESSAGE" value="alot" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java</url>
-          <line>132</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="got add to work&#10;have to add show detail to it tho" />
+    <option name="LAST_COMMIT_MESSAGE" value="got add to work&#10;have to add show detail to it tho" />
   </component>
 </project>

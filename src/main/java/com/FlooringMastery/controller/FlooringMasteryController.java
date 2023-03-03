@@ -127,10 +127,7 @@ public class FlooringMasteryController {
                 //configs the order info
                 service.configAddOrder(newOrder);
 
-                System.out.println("made it");
-
-
-                //add summery of order
+                view.displaySingleOrder(newOrder);
 
                 if(view.wantToAddOrder()){
                     //create an actual order
@@ -143,9 +140,6 @@ public class FlooringMasteryController {
                 view.displayErrorMessage(e.getMessage());
             }
         }while(hasErrors);
-
-
-
     }
 
 

@@ -40,8 +40,30 @@ public class FlooringMasteryView {
         io.print("-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-+*+-");
 
         return io.readInt("", 1, 6);
+
     }
 
+
+    /**Print details of an Order
+     * @param order Order to display Order Details
+     */
+    public void displaySingleOrder(Order order){
+        io.print("Order Details");
+        io.print("Customer Name: "+order.getCustomerName());
+        io.print("State: "+order.getState().getStateAbbreviation());
+        io.print("TaxRate: "+order.getState().getTaxRate());
+        io.print("ProductType: "+order.getProductType().getProductType());
+        io.print("Area: "+order.getArea());
+        io.print("CostPerSquareFoot: "+order.getProductType().getCostPerSquareFoot());
+        io.print("LaborCostPerSquareFoot: "+order.getProductType().getLaborCostPerSquareFoot());
+        io.print("MaterialCost: "+order.getOrderCal().getMaterialCost());
+        io.print("LaborCost: "+order.getOrderCal().getLaborCost());
+        io.print("Tax: "+order.getOrderCal().getTax());
+        io.print("Total: "+order.getOrderCal().getTotal());
+    }
+
+
+    //<<Add order>>
 
     public void getAddOrderBanner(){
         io.print("-+*+-+*+-+*+-   Add an Order   -+*+-+*+-+*+-");
