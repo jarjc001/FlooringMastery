@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,futre,WA,9.25,Wood,50000.00,5.15,4.75,257500.00,237500.00,45787.50,540787.50

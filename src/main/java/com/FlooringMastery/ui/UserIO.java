@@ -73,5 +73,10 @@ public interface UserIO {
         LocalDate readLocalDate(String prompt);
 
 
-
+        /**Asks the user a yes or no question with a given prompt.
+         * Then returns a Boolean true(Yes) or false(No)
+         * @param prompt - String prompt to be displayed on console
+         * @return - the answer of the prompt as a boolean
+         */
+        boolean readYesOrNo(String prompt);
 }

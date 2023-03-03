@@ -84,23 +84,15 @@ public class FlooringMasteryView {
      * @return true if yes, false if no
      */
     public boolean wantToAddOrder(){
-        String answer = io.readString("Do you want to place order (Y/N):").toUpperCase();
-
-        if (answer.equals("Y") ){
-            return true;
-        }
-        return false;
+        return io.readYesOrNo("Do you want to place order (Y/N):");
     }
 
 
 
 
-
-
-
-
-
-
+    /**Prints the error message of the exception being thrown     *
+     * @param errorMsg Error message from exception
+     */
     public void displayErrorMessage(String errorMsg) {
         io.print("=== ERROR ===");
         io.print(errorMsg);
