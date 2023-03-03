@@ -23,10 +23,10 @@ public class OrderCal {
      */
     public OrderCal(BigDecimal area, Product productType,
                     Tax state) {
-        this.materialCost = calculateMaterialCost(area,productType);
-        this.laborCost = calculateLaborCost(area,productType);
-        this.tax = calculateTax(this.materialCost,this.laborCost,state);
-        this.total = calculateTotal(this.materialCost,this.laborCost,this.tax);
+        this.materialCost = calculateMaterialCost(area,productType).setScale(2,RoundingMode.HALF_UP);
+        this.laborCost = calculateLaborCost(area,productType).setScale(2,RoundingMode.HALF_UP);
+        this.tax = calculateTax(this.materialCost,this.laborCost,state).setScale(2,RoundingMode.HALF_UP);
+        this.total = calculateTotal(this.materialCost,this.laborCost,this.tax).setScale(2,RoundingMode.HALF_UP);
     }
 
     //Getters
@@ -74,7 +74,10 @@ public class OrderCal {
      * @return Tax
      */
     private BigDecimal calculateTax(BigDecimal materialCost, BigDecimal laborCost, Tax state){
-        BigDecimal tax = state.getTaxRate().divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+        BigDecimal percent = new BigDecimal(0.01);
+
+        BigDecimal tax = state.getTaxRate().multiply(percent);
+
         return (materialCost.add(laborCost)).multiply(tax);
     }
 

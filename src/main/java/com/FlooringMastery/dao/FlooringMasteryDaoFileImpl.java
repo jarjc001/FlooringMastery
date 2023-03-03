@@ -1,7 +1,6 @@
 package com.FlooringMastery.dao;
 
 import com.FlooringMastery.dto.*;
-import org.springframework.core.OrderComparator;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -28,15 +27,22 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     /**Map that will temporarily hold Order info from an order .txt file.
      * It will allow the info to be displayed and edited. Then the Map will be
      * used to overwrite the same order .txt file.
+     * The key is the order code as an int,
+     * The Value is the Order object
      */
     private Map<Integer, Order> orderMap = new HashMap<>();
 
 
     /**Map will hold the State Tax info from the "Taxes.txt" file.
      * It will be read at the startup of App.
-     * The key is the State's Abbreviation as a String
+     * The key is the State's Abbreviation as a String,
      *.The Value is the Tax object containing the state's name and tax rate*/
     private Map<String, Tax> stateTaxMap = new HashMap<>();
+
+    @Override
+    public Map<String, Tax> getStateTaxMap (){
+        return this.stateTaxMap;
+    }
 
     /**Map will hold the Product type info from the "Products.txt" file.
      * It will be read at the startup of App.
@@ -44,22 +50,44 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
      *.The Value is the Product object containing its name, cost and labour per square ft*/
     private Map<String, Product> productTypeMap = new HashMap<>();
 
+    @Override
+    public Map<String, Product> getProductTypeMap (){
+        return this.productTypeMap;
+    }
+
+
+    /** Used to keep track of next available order number*/ //available
+    private static int nextavailableOrderNumber= 1;
+
+    @Override
+    public void findNextOrderNumber(){
+        //restarts at 1
+        nextavailableOrderNumber = 1;
+
+        //checks all orders in the map
+        for (int orderNumber : orderMap.keySet()) {
+            if (orderNumber >= nextavailableOrderNumber) {
+                nextavailableOrderNumber = orderNumber+1;
+            }
+        }
+
+    }
+
+
     //<<<<read files>>>>>
 
     @Override
-    public List<String[]> readFile(String fileName, FileHeaders fileType) throws FlooringMasteryPersistenceException{
+    public List<String[]> readFile(String fileName, FileHeaders fileType) throws FlooringMasteryPersistenceException {
         List<String[]> splitLineList = new ArrayList<String[]>();
         File dataIn;
         //choose the file being read based on file type
         switch (fileType){
             case TAX:
-                dataIn = new File("./Files/Data/Taxes.txt");
-                break;
             case PRODUCT:
-                dataIn = new File("./Files/Data/Products.txt");
+                dataIn = new File("./Files/Data/"+fileName);
                 break;
             case ORDER:
-                dataIn = new File("./Files/Orders/"+fileName+".txt");
+                dataIn = new File("./Files/Orders/"+fileName);
                 break;
             default:
                 return null;
@@ -89,8 +117,9 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public void unmarshallTax(List<String[]> splitLineList){
+    public void readTaxFile(String fileName) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.TAX);
         stateTaxMap.clear();
 
         for(String[] state: splitLineList) {
@@ -106,8 +135,9 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
     @Override
-    public void unmarshallProduct(List<String[]> splitLineList){
+    public void readProductFile(String fileName) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.PRODUCT);
         productTypeMap.clear();
 
         for(String[] product: splitLineList) {
@@ -123,10 +153,10 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
     @Override
-    public void unmarshallOrder(List<String[]> splitLineList, LocalDate date){
+    public void readOrderFile(String fileName, LocalDate date) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.ORDER);
         orderMap.clear();
-        Order.resetOverallOrderNumber();
 
         for(String[] order: splitLineList) {
             //goes through every entry in the List Array and adds them to the Map
@@ -145,6 +175,8 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             //creates order Object
             Order inputOrder = new Order(orderNumber,customerName,inputStateTax,inputProductType,area,date);
 
+            //calculates the rest of the Order Info
+            inputOrder.configOrderCal();
 
             orderMap.put(orderNumber,inputOrder);
         }
@@ -156,8 +188,8 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
     @Override
-    public void writeOrderFile(String fileName, Map<Integer, Order> map){
-        File dataOut = new File("./Files/Orders/"+fileName+".txt");
+    public void writeOrderFile(String fileName) throws FlooringMasteryPersistenceException {
+        File dataOut = new File("./Files/Orders/"+fileName);
 
         FileWriter fileWriter;
 
@@ -166,11 +198,12 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             PrintWriter pr = new PrintWriter(fileWriter);
 
             //Writes header of order file
-            pr.println(FileHeaders.ORDER);
+            pr.println(FileHeaders.ORDER.getHeader());
 
-            for(Order order:map.values()){
+            for(Order order:orderMap.values()){
                 //writes each Order Object into its own line
                 pr.println(order.getOrderNumber()+DELIMITER
+                        +order.getCustomerName()+DELIMITER
                         +order.getState().getStateName()+DELIMITER
                         +order.getState().getTaxRate()+DELIMITER
                         +order.getProductType().getProductType()+DELIMITER
@@ -185,11 +218,37 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             pr.flush();
             pr.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FlooringMasteryPersistenceException("Can't write File",e);
         }
     }
 
 
+    @Override
+    public void writeBackupOrderFile() throws FlooringMasteryPersistenceException {
+//
+//        //loop for every read oreders file here
+//
+//        File dataOut = new File("./Files/Backup/DataExport.txt");
+//
+//        FileWriter fileWriter;
+//
+//        try{
+//            fileWriter = new FileWriter(dataOut);
+//            PrintWriter pr = new PrintWriter(fileWriter);
+//
+//            //Writes header of order file
+//            pr.println(FileHeaders.BACKUP);
+//
+//
+//        } catch (IOException e) {
+//            throw new FlooringMasteryPersistenceException("file not found",e);
+//        }
+//
+
+    }
+
+
+    //do later
 
     @Override
     public void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date){
@@ -219,7 +278,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                         +date.getMonthValue()+"-"+ //date in MMddyyyy
                         date.getDayOfMonth()+"-"+
                         date.getYear());
-
             }
             pr.flush();
             pr.close();
@@ -229,7 +287,18 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-        //matbe just use lis<Array> to print strings of data, don't need to convert back and forth
+
+
+    @Override
+    public Order addOrder(Order order, String fileName) throws FlooringMasteryPersistenceException {
+        //sets order number
+        findNextOrderNumber();
+        order.setOrderNumber(nextavailableOrderNumber);
+        //places new order into map
+        orderMap.put(order.getOrderNumber(),order);
+        //writes order map into file
+        writeOrderFile(fileName);
+        return order;
     }
 
 
@@ -237,7 +306,14 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
 
-
-
-
 }
+
+
+
+
+
+
+
+
+
+

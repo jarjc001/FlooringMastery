@@ -21,6 +21,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public String readString(String prompt) {
+        Scanner sc = new Scanner(System.in);
         //print prompt
         System.out.println(prompt);
         return sc.nextLine();
@@ -28,6 +29,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public int readInt(String prompt) {
+        Scanner sc = new Scanner(System.in);
         int num;
         while (true) {
             try {
@@ -62,6 +64,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public BigDecimal readBigDecimal(String prompt) {
+        Scanner sc = new Scanner(System.in);
         System.out.println(prompt);
         BigDecimal input = sc.nextBigDecimal().setScale(2, RoundingMode.HALF_UP);
 
@@ -71,13 +74,16 @@ public class UserIOConsoleImpl implements UserIO {
     @Override
     public LocalDate readLocalDate(String prompt) {
         LocalDate ld =  LocalDate.now();
-        try {
-            String inputDate = readString(prompt + " (MM/DD/YYYY)");
-            ld = LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        while (true) {
+            try {
+                String inputDate = readString(prompt + " (MM/DD/YYYY):");
+                ld = LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+                break;
 
-        }catch (Exception e){
-            this.print("Input not in date format (MM/DD/YYYY), Try again");
-            //make runtime exception
+            } catch (Exception e) {
+                this.print("Input not in date format (MM/DD/YYYY), Try again");
+                //make runtime exception
+            }
         }
         return ld;
 

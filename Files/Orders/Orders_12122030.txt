@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,new order man,Calfornia,25.00,Wood,5000.00,5.15,4.75,25750.00,23750.00,12375.00,61875.00

@@ -24,7 +24,8 @@ public class Tax {
         this.taxRate = taxRate;
     }
 
-
+    public Tax() {
+    }
 
     //Getters
 

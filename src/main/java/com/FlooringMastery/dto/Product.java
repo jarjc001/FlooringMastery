@@ -27,6 +27,9 @@ public class Product {
         this.laborCostPerSquareFoot = laborCostPerSquareFoot;
     }
 
+    public Product() {
+    }
+
     //Getters
 
     public String getProductType() {

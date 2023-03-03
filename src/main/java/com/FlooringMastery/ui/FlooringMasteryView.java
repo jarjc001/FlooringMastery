@@ -1,7 +1,11 @@
 package com.FlooringMastery.ui;
 
+import com.FlooringMastery.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Component
 public class FlooringMasteryView {
@@ -37,6 +41,75 @@ public class FlooringMasteryView {
 
         return io.readInt("", 1, 6);
     }
+
+
+    public void getAddOrderBanner(){
+        io.print("-+*+-+*+-+*+-   Add an Order   -+*+-+*+-+*+-");
+    }
+
+   /**Prompts the user to fill in the Date of the Order they want to add,
+    * Then sets info to an empty Order object*/
+    public void getNewOrderDate(Order order){
+        order.setOrderDate(io.readLocalDate("Please enter Order Date"));
+    }
+
+    /**Prompts the user to fill in the Customer Name of the Order they want to add,
+     * Then sets info to an empty Order object*/
+    public void getNewOrderName(Order order){
+        order.setCustomerName(io.readString("Please enter Customer Name:"));
+
+    }
+
+    /**Prompts the user to fill in the State  of the Order they want to add,
+     * Then sets info to an empty Order object*/
+    public void getNewOrderState(Order order){
+        order.getState().setStateAbbreviation(io.readString("Please enter State:").toUpperCase());
+    }
+
+    /**Prompts the user to fill in the Product Type of the Order they want to add,
+     * Then sets info to an empty Order object*/
+    public void getNewOrderProduct(Order order){
+        order.getProductType().setProductType(io.readString("Please enter Product Type:"));
+    }
+
+    /**Prompts the user to fill in the Area of the Order they want to add,
+     * Then sets info to an empty Order object*/
+    public void getNewOrderArea(Order order){
+        order.setArea(io.readBigDecimal("Please enter Area in sq ft:"));
+    }
+
+
+    /**
+     * Prompts user if they want to add the Order to File
+     * @return true if yes, false if no
+     */
+    public boolean wantToAddOrder(){
+        String answer = io.readString("Do you want to place order (Y/N):").toUpperCase();
+
+        if (answer.equals("Y") ){
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
+    }
+
+
+
+
+
 
 
 }

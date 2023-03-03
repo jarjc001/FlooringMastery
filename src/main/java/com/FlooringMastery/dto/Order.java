@@ -15,19 +15,23 @@ public class Order {
     private LocalDate orderDate;
     private OrderCal orderCal;
 
-    public static int overallOrderNumber =1;
 
 
     //Constructors
 
+    /**Constructor.
+     * Creates a plain Order Object
+     */
+    public Order() {
+        this.state = new Tax();
+        this.productType = new Product();
+    }
 
     /**Constructor.
-     *For when the order number is not already established. It will give it
-     * the next order number available then +1 to  overallOrderNumber.
-     * This keeps track of what is the highest Order Number.
-     * This will be used for adding new Orders
+     *For when only the names and no the full object is known for Tax and Product.
+     * This will be used for creating new Orders
      * @param customerName Customer Name
-     * @param state State
+     * @param state state
      * @param productType Product Type
      * @param area Area
      * @param orderDate Order Date
@@ -37,21 +41,16 @@ public class Order {
                  LocalDate orderDate) {
 
         this.customerName = customerName;
-        this.state = state;
+        this.state =  state;
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        //will calculate the rest of the order info
-        configOrderCal();
 
-        this.orderNumber = overallOrderNumber++;
+        configOrderCal();
     }
 
     /**Constructor.
      *For when the order number is already established.
-     *If overallOrderNumber is smaller or equal to the given
-     * orderNumber, overallOrderNumber will change to become
-     * orderNumber+1. This keeps track of what is the highest Order Number.
      * This will be used for reading Orders or editing orders
      * @param orderNumber order number
      * @param customerName Customer Name
@@ -70,12 +69,7 @@ public class Order {
         this.productType = productType;
         this.area = area;
         this.orderDate = orderDate;
-        //will calculate the rest of the order info
-        configOrderCal();
 
-        if(orderNumber>=overallOrderNumber){
-            overallOrderNumber = orderNumber+1;
-        }
     }
 
 
@@ -111,27 +105,24 @@ public class Order {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public void setState(Tax state) {
         this.state = state;
-        configOrderCal();
     }
     public void setProductType(Product productType) {
         this.productType = productType;
-        configOrderCal();
     }
     public void setArea(BigDecimal area) {
         this.area = area;
-        configOrderCal();
+    }
+    public void setOrderNumber(int orderNumber){
+        this.orderNumber = orderNumber;
     }
 
-
-    /**
-     * Used when accessing a new order file, will reset the overall
-     * Order Number to 1 again
-     */
-    public static void resetOverallOrderNumber(){
-        overallOrderNumber =1;
-    }
 
 
     /**To calculate the Order info when a new Product type, state or Area are added to order*/

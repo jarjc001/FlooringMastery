@@ -1,10 +1,13 @@
 package com.FlooringMastery;
 
 import com.FlooringMastery.controller.FlooringMasteryController;
+import com.FlooringMastery.dao.FlooringMasteryPersistenceException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Arrays;
+
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FlooringMasteryPersistenceException { //undo somehow
 
 
         AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
@@ -13,6 +16,7 @@ public class App {
 
         FlooringMasteryController controller = appContext.getBean("flooringMasteryController",
                                                                     FlooringMasteryController.class);
+
 
         controller.runApp();
 
