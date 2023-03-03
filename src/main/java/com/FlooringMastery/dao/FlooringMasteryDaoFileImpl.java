@@ -204,7 +204,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                 //writes each Order Object into its own line
                 pr.println(order.getOrderNumber()+DELIMITER
                         +order.getCustomerName()+DELIMITER
-                        +order.getState().getStateName()+DELIMITER
+                        +order.getState().getStateAbbreviation()+DELIMITER
                         +order.getState().getTaxRate()+DELIMITER
                         +order.getProductType().getProductType()+DELIMITER
                         +order.getArea()+DELIMITER
