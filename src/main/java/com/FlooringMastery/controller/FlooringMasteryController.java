@@ -127,7 +127,8 @@ public class FlooringMasteryController {
                 //configs the order info
                 service.configAddOrder(newOrder);
 
-                view.displaySingleOrder(newOrder);
+                view.displaySingleOrderInfoHeader();
+                view.displaySingleOrderInfo(newOrder);
 
                 if(view.wantToAddOrder()){
                     //create an actual order

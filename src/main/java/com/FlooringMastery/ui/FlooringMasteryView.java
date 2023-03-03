@@ -4,9 +4,6 @@ import com.FlooringMastery.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Component
 public class FlooringMasteryView {
 
@@ -43,12 +40,24 @@ public class FlooringMasteryView {
 
     }
 
+    //<<show order details>>
+
+    /**Print details of an Order banner*/
+    public void displaySingleOrderInfoHeader() {
+        io.print("Order Details");
+    }
+
+    /**Print order number of an Order
+     * @param order Order to display Order number
+     */
+    public void displaySingleOrderNumber(Order order) {
+        io.print("Order Number: " + order.getOrderNumber());
+    }
 
     /**Print details of an Order
      * @param order Order to display Order Details
      */
-    public void displaySingleOrder(Order order){
-        io.print("Order Details");
+    public void displaySingleOrderInfo(Order order){
         io.print("Customer Name: "+order.getCustomerName());
         io.print("State: "+order.getState().getStateAbbreviation());
         io.print("TaxRate: "+order.getState().getTaxRate());
@@ -63,7 +72,14 @@ public class FlooringMasteryView {
     }
 
 
+
+
+
     //<<Add order>>
+
+
+
+
 
     public void getAddOrderBanner(){
         io.print("-+*+-+*+-+*+-   Add an Order   -+*+-+*+-+*+-");
@@ -74,26 +90,22 @@ public class FlooringMasteryView {
     public void getNewOrderDate(Order order){
         order.setOrderDate(io.readLocalDate("Please enter Order Date"));
     }
-
     /**Prompts the user to fill in the Customer Name of the Order they want to add,
      * Then sets info to an empty Order object*/
     public void getNewOrderName(Order order){
         order.setCustomerName(io.readString("Please enter Customer Name:"));
 
     }
-
     /**Prompts the user to fill in the State  of the Order they want to add,
      * Then sets info to an empty Order object*/
     public void getNewOrderState(Order order){
         order.getState().setStateAbbreviation(io.readString("Please enter State:").toUpperCase());
     }
-
     /**Prompts the user to fill in the Product Type of the Order they want to add,
      * Then sets info to an empty Order object*/
     public void getNewOrderProduct(Order order){
         order.getProductType().setProductType(io.readString("Please enter Product Type:"));
     }
-
     /**Prompts the user to fill in the Area of the Order they want to add,
      * Then sets info to an empty Order object*/
     public void getNewOrderArea(Order order){

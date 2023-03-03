@@ -3,6 +3,8 @@ package com.FlooringMastery.service;
 import com.FlooringMastery.dao.FlooringMasteryPersistenceException;
 import com.FlooringMastery.dto.*;
 
+import java.time.LocalDate;
+import java.util.List;
 
 
 public interface FlooringMasteryService {
@@ -12,6 +14,8 @@ public interface FlooringMasteryService {
      * @throws FlooringMasteryPersistenceException
      */
     void readTaxAndProduct() throws FlooringMasteryPersistenceException;
+
+
 
     /**
      * Creates an empty Order Object
@@ -31,6 +35,19 @@ public interface FlooringMasteryService {
     void configAddOrder(Order order);
 
 
+    /**Reads the order file of the given Order Date into the orderMap then unmarshells it to the Map
+     * If the Order doesn't exist, it will throw an exception instead.
+     * Use for
+     * @param orderDate date of the Order to display
+     * @throws FlooringMasteryPersistenceException missing file
+     */
+    void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException;
+
+
+    /**Returns a List Array of all the Orders in orderMap
+     * @return List Array of all the Orders in orderMap
+     */
+    List<Order> displayOrders();
 
     /** It will test the given Order on Order Test rules:
      * Order Date - must be in the future.

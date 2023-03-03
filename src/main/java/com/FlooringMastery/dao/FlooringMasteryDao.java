@@ -21,6 +21,12 @@ public interface FlooringMasteryDao {
     /**Finds the next available Order number in the current Order Map*/
     void findNextOrderNumber();
 
+    /**Gets the Order file name from its order date
+     *
+     * @param orderDate file name as Orders_MMddyyyy.txt
+     */
+    String getOrderFileName(LocalDate orderDate);
+
 
     /**Opens fileName.txt file. It then transfers info into a ArrayList to hold in memory.
      * The file name only needs the name of the file, not the directory path
@@ -69,21 +75,63 @@ public interface FlooringMasteryDao {
     void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date);
 
 
+    /**Adds a given Order to the order File of its date, only if
+     * the given order passes all the business rules.
+     * @param addOrder Order object to be added
+     */
+    void createOrder(Order addOrder) throws FlooringMasteryPersistenceException;
+
+    /**Configures an Order object, to be added to file, to have all the values calculated
+     * @return the new Order Object with calculated values
+     */
+    void configAddOrder(Order order);
+
+
     /**Adds new order to the Order map, then writes the Map into the corresponding Order file
      * @param order order object that is being added to Map
      * @param fileName name of file being written in
-     * @return
      */
-    Order addOrder(Order order, String fileName) throws FlooringMasteryPersistenceException;
+    void addOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException;
+
+
+    /**Reads the order file of the given Order Date into the orderMap then unmarshells it to the Map
+     * If the Order doesn't exist, it will throw an exception instead.
+     * Use for
+     * @param orderDate date of the Order to display
+     * @throws FlooringMasteryPersistenceException missing file
+     */
+    void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException;
 
 
 
-    //public Order addOrder();
 
 
 
 
-    //public abstract
+
+
+
+
+
+
+
+
+
+
+
+
+    /**Finds an Order in the Order Map based on its Order Number.
+     * If there is no Order Number in Map, it will return Null
+     * @param orderNumber order number of Order
+     * @return Order object
+     */
+    Order findOrderNumber(int orderNumber);
+
+
+
+
+
+
 
 
 

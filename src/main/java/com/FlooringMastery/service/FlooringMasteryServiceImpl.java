@@ -4,7 +4,6 @@ import com.FlooringMastery.dao.FlooringMasteryPersistenceException;
 import com.FlooringMastery.dto.*;
 
 import java.util.Arrays;
-import java.util.regex.*;
 
 
 import com.FlooringMastery.dao.FlooringMasteryDao;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class FlooringMasteryServiceImpl implements FlooringMasteryService{
@@ -37,6 +37,7 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
 
 
+
    // <<Add order>>
 
 
@@ -47,36 +48,57 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
     @Override
     public void createOrder(Order order) throws FlooringMasteryPersistenceException {
-        String fileName ="Orders_"+order.getOrderDate().getMonthValue()+
-                order.getOrderDate().getDayOfMonth()+
-                order.getOrderDate().getYear()+".txt";
-
-        try {
-            //Read Order file of given order's date
-            dao.readOrderFile(fileName, order.getOrderDate());
-        }catch (FlooringMasteryPersistenceException e){
-        //won't do anything if the order file for the date does not excites yet
-        }finally {
-            //Add given order to order file
-            dao.addOrder(order,fileName);
-        }
-
+        dao.createOrder(order);
     }
+
 
     @Override
     public void configAddOrder(Order order){
-        //change the objets empty state object to the state object from the map
-        Tax stateConfig = dao.getStateTaxMap().get(order.getState().getStateAbbreviation());
-        order.setState(stateConfig);
+        dao.configAddOrder(order);
+    }
 
-        //change the objets empty product object to the product object from the map
-        Product productConfig = dao.getProductTypeMap().get(order.getProductType().getProductType());
-        order.setProductType(productConfig);
 
-        //calculates the rest of the order info
-        order.configOrderCal();
+
+    //<<search Order date file>>
+
+    @Override
+    public void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException {
+
+        dao.SearchOrderDateFile(orderDate);
+    }
+
+
+    //<<display>>
+
+    @Override
+    public List<Order> displayOrders(){
+
+
+
+        return null;
+
+
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //<<Business rules>>

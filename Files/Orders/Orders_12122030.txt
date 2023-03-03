@@ -3,3 +3,4 @@ OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborC
 4,timmy,WA,9.25,Wood,400.00,5.15,4.75,2060.00,1900.00,366.30,4326.30
 6,timmy,WA,9.25,Wood,400.00,5.15,4.75,2060.00,1900.00,366.30,4326.30
 7,toowowo,TX,4.45,Wood,2000.00,5.15,4.75,10300.00,9500.00,881.10,20681.10
+8,hhhhhhh,TX,4.45,Wood,400.00,5.15,4.75,2060.00,1900.00,176.22,4136.22
