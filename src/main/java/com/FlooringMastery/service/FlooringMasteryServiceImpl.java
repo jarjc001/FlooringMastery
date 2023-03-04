@@ -71,14 +71,18 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
     //<<display>>
 
     @Override
-    public List<Order> displayOrders(){
+    public List<Order> getListOrders(){
+        return dao.getAllOrders();
+    }
 
 
 
-        return null;
 
+    //<<edit>>
 
-
+    @Override
+    public Order getOrderFromNumber(int orderNumber) throws FlooringMasteryPersistenceException {
+        return dao.findOrderNumber(orderNumber);
     }
 
 
@@ -102,10 +106,6 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
 
     //<<Business rules>>
-
-
-
-
 
 
     @Override

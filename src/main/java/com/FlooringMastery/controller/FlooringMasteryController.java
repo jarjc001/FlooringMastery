@@ -8,6 +8,8 @@ import com.FlooringMastery.ui.FlooringMasteryView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class FlooringMasteryController {
 
@@ -45,10 +47,10 @@ public class FlooringMasteryController {
 
             switch (menuSelect){
                 case 1:
-                    System.out.println("1.Display Orders");
+                    displayOrders();
                     break;
                 case 2:
-                    createStudent();  //undo somehow
+                    createOrder();  //undo somehow
                     break;
                 case 3:
                     System.out.println("3.Edit an Order");
@@ -99,7 +101,7 @@ public class FlooringMasteryController {
      * If the info passes the business rules,
      * it will be added to the corresponding Order file based on it's date
      */
-    private void createStudent() {
+    private void createOrder() {
         view.getAddOrderBanner();
         boolean hasErrors = false;
 
@@ -141,6 +143,28 @@ public class FlooringMasteryController {
                 view.displayErrorMessage(e.getMessage());
             }
         }while(hasErrors);
+    }
+
+
+    /**Asks user for a date,
+     * then will print the order details of all the orders of the date.
+     * If no orders exist for that date, it will display an error message
+     * and return user to main menu
+     */
+    private void displayOrders(){
+        view.getDisplayOrderBanner();
+        LocalDate date = view.askOrderDate();
+        try {
+            service.SearchOrderDateFile(date);
+            view.diplayOrderForDate(service.getListOrders());
+        } catch (FlooringMasteryPersistenceException e) {
+            view.displayErrorMessage(e.getMessage());
+        }
+
+
+
+
+
     }
 
 

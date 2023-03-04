@@ -4,6 +4,9 @@ import com.FlooringMastery.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Component
 public class FlooringMasteryView {
 
@@ -54,6 +57,15 @@ public class FlooringMasteryView {
         io.print("Order Number: " + order.getOrderNumber());
     }
 
+    /**Print order date of an Order
+     * @param order Order to display Order date
+     */
+    public void displaySingleOrderDate(Order order) {
+        io.print("Order Date: " + order.getOrderDate().getMonthValue()+"/"+
+                                order.getOrderDate().getDayOfMonth()+"/"+
+                                order.getOrderDate().getYear());
+    }
+
     /**Print details of an Order
      * @param order Order to display Order Details
      */
@@ -79,8 +91,6 @@ public class FlooringMasteryView {
 
 
 
-
-
     public void getAddOrderBanner(){
         io.print("-+*+-+*+-+*+-   Add an Order   -+*+-+*+-+*+-");
     }
@@ -94,7 +104,6 @@ public class FlooringMasteryView {
      * Then sets info to an empty Order object*/
     public void getNewOrderName(Order order){
         order.setCustomerName(io.readString("Please enter Customer Name:"));
-
     }
     /**Prompts the user to fill in the State  of the Order they want to add,
      * Then sets info to an empty Order object*/
@@ -124,6 +133,55 @@ public class FlooringMasteryView {
 
 
 
+
+    //<<Display Orders
+
+    public void getDisplayOrderBanner(){
+        io.print("-+*+-+*+-+*+-   Display Order   -+*+-+*+-+*+-");
+    }
+
+    /**Prompts the user for the Date of the Orders they want to display,
+     * @return date of the orders to be displayed
+     */
+    public LocalDate askOrderDate (){
+        return io.readLocalDate("Please enter Date of Orders to Display");
+    }
+
+    /**Displays the info of the orders for a give List arrar
+     * @param orderList List array of Orders to display
+     */
+    public void diplayOrderForDate(List<Order> orderList){
+        for (Order order:orderList){
+            io.print("-+*+-+*+-+*+-+*+-+*+-+*+-");
+            displaySingleOrderNumber(order);
+            displaySingleOrderInfo(order);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**Prints the error message of the exception being thrown     *
      * @param errorMsg Error message from exception
      */
@@ -131,11 +189,6 @@ public class FlooringMasteryView {
         io.print("=== ERROR ===");
         io.print(errorMsg);
     }
-
-
-
-
-
 
 
 }

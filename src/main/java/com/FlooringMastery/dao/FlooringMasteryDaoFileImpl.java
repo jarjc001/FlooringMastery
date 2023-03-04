@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,11 +75,14 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
+
+
     @Override
     public String getOrderFileName(LocalDate orderDate){
-        return "Orders_"+orderDate.getMonthValue()+
-                orderDate.getDayOfMonth()+
-                orderDate.getYear()+".txt";
+        return "Orders_"+orderDate.format(DateTimeFormatter.ofPattern("MMddyyyy"))+".txt";
+//                .getMonthValue()+
+//                orderDate.getDayOfMonth()+
+//                orderDate.getYear()+".txt";
     }
 
 
@@ -127,12 +131,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     @Override
     public void readTaxFile(String fileName) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
-        List<String[]> splitLineList = readFile(fileName,FileHeaders.TAX);
         stateTaxMap.clear();
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.TAX);
+
 
 
         for(String[] state: splitLineList) {
-            //tests if all lines are right format, wil skip line if something is wrong
+            //tests if all lines are right format, will skip line if not in the right format
             if(state.length != 3){
                 continue;
             }
@@ -151,11 +156,12 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     @Override
     public void readProductFile(String fileName) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
-        List<String[]> splitLineList = readFile(fileName,FileHeaders.PRODUCT);
         productTypeMap.clear();
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.PRODUCT);
+
 
         for(String[] product: splitLineList) {
-            //tests if all lines are right format, wil skip line if something is wrong
+            //tests if all lines are right format, will skip line if not in the right format
             if(product.length != 3){
                 continue;
             }
@@ -173,11 +179,12 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     @Override
     public void readOrderFile(String fileName, LocalDate date) throws FlooringMasteryPersistenceException {
         //Clears the map so only incoming info is in it
-        List<String[]> splitLineList = readFile(fileName,FileHeaders.ORDER);
         orderMap.clear();
+        List<String[]> splitLineList = readFile(fileName,FileHeaders.ORDER);
+
 
         for(String[] order: splitLineList) {
-            //tests if all lines are right format, wil skip line if something is wrong
+            //tests if all lines are right format, will skip line if not in the right format
             if(order.length != 12){
                 continue;
             }
@@ -311,6 +318,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
 
+    //<<add order>>
 
     @Override
     public void createOrder(Order order) throws FlooringMasteryPersistenceException {
@@ -341,7 +349,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     }
 
-
     @Override
     public void addOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException {
         //sets order number
@@ -354,7 +361,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-
+    //find date file
 
 
     @Override
@@ -364,26 +371,29 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
             //Read Order file of given order's date
             readOrderFile(fileName, orderDate);
         }catch (FlooringMasteryPersistenceException f){
-            throw new FlooringMasteryPersistenceException("Error - No orders exist for that Date",f);
+            throw new FlooringMasteryPersistenceException("No orders exist for that Date",f);
         }
     }
 
 
+    //<<Search Order date>>
 
-
-
-
-
-
-
-
-
-
-
-//for edit and remove
     @Override
-    public Order findOrderNumber(int orderNumber){
-        return orderMap.get(orderNumber);
+    public List<Order> getAllOrders(){
+        return new ArrayList<Order>(orderMap.values());
+    }
+
+
+
+// order
+    @Override
+    public Order findOrderNumber(int orderNumber) throws FlooringMasteryPersistenceException {
+        try{
+            return orderMap.get(orderNumber);
+        }catch (Exception e){
+            throw new FlooringMasteryPersistenceException("No Order with this Order Number",e);
+        }
+
     }
 
     //@Override

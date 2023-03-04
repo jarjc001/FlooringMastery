@@ -103,29 +103,18 @@ public interface FlooringMasteryDao {
     void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Returns a List Array of all orders for the current orderMap
+     * @return List Array of all orders for the current orderMap
+     */
+    List<Order> getAllOrders();
 
     /**Finds an Order in the Order Map based on its Order Number.
      * If there is no Order Number in Map, it will return Null
      * @param orderNumber order number of Order
      * @return Order object
      */
-    Order findOrderNumber(int orderNumber);
+    Order findOrderNumber(int orderNumber) throws FlooringMasteryPersistenceException;
 
 
 

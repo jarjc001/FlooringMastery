@@ -23,8 +23,7 @@ public interface FlooringMasteryService {
      */
     Order createEmptyOrder();
 
-    /**Adds a given Order to the order File of its date, only if
-     * the given order passes all the business rules.
+    /**Adds a given Order to the order File of its date
      * @param addOrder Order object to be added
      */
     void createOrder(Order addOrder) throws FlooringMasteryPersistenceException;
@@ -47,7 +46,14 @@ public interface FlooringMasteryService {
     /**Returns a List Array of all the Orders in orderMap
      * @return List Array of all the Orders in orderMap
      */
-    List<Order> displayOrders();
+    List<Order> getListOrders();
+
+
+    /**Finds an Order in the Order Map based on its Order Number.
+     * If there is no Order Number in Map, it will return Null
+     * @param orderNumber order number of Order
+     * @return Order object */
+    Order getOrderFromNumber(int orderNumber) throws FlooringMasteryPersistenceException;
 
     /** It will test the given Order on Order Test rules:
      * Order Date - must be in the future.
@@ -56,25 +62,25 @@ public interface FlooringMasteryService {
     void validateNewOrderDate(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on Customer Test rules:
-     * Customer Name - Not blank and is limited to characters [a-z][0-9][,][.]
+     * Customer Name - Not blank and is limited to characters [a-z][0-9][,][.].
      * If any fail, an exception is given
      * @param order Order object to be tested */
     void validateNewOrderName(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on State Test rules:
-     * State - in given Taxes.txt
+     * State - in given Taxes.txt.
      * If any fail, an exception is given
      * @param order Order object to be tested */
     void validateNewOrderState(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on Product Test rules:
-     * Product Type - in given Products.txt
+     * Product Type - in given Products.txt.
      * If any fail, an exception is given
      * @param order Order object to be tested */
     void validateNewOrderProduct(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on Area Test rules:
-     * Area - greater than 100 sq ft
+     * Area - greater than 100 sq ft.
      * If any fail, an exception is given
      * @param order Order object to be tested */
     void validateNewOrderArea(Order order) throws FlooringMasteryBusinessRulesException;
