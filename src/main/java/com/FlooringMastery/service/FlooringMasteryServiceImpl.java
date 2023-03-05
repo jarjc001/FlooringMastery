@@ -48,7 +48,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
     @Override
     public void createNewOrder(Order order) throws FlooringMasteryPersistenceException {
-        dao.createNewOrder(order);
+        String fileName = dao.getOrderFileName(order.getOrderDate());
+        dao.createNewOrder(order,fileName);
     }
 
 
@@ -63,8 +64,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
     @Override
     public void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException {
-
-        dao.SearchOrderDateFile(orderDate);
+        String fileName = dao.getOrderFileName(orderDate);
+        dao.SearchOrderDateFile(orderDate,fileName);
     }
 
 
@@ -88,7 +89,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
     @Override
     public void addOrderToFile(Order order) throws FlooringMasteryPersistenceException{
-        dao.addOrderToFile(order);
+        String fileName = dao.getOrderFileName(order.getOrderDate());
+        dao.addOrderToFile(order, fileName);
     }
 
     //<<Remove>>
@@ -96,7 +98,18 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
     @Override
     public void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException {
-        dao.removeOrderToFile(order);
+        String fileName = dao.getOrderFileName(order.getOrderDate());
+        dao.removeOrderToFile(order,fileName);
+    }
+
+
+
+    //<<Backup>>
+
+    @Override
+    public void  writeBackupOrderFile() throws FlooringMasteryPersistenceException {
+        dao.writeBackupOrderFile();
+
     }
 
 

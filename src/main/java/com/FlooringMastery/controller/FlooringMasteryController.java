@@ -59,7 +59,7 @@ public class FlooringMasteryController {
                     removeOrder();
                     break;
                 case 5:
-                    System.out.println("Export All Data");  //optional
+                    backupOrderFile();  //optional
                     break;
                 case 6:
                     keepRunning=false;
@@ -207,7 +207,7 @@ public class FlooringMasteryController {
                         service.validateNewOrderArea((orderEdited));
 
                         //configs the order info
-                        service.configOrder((orderEdited));
+                        service.configOrder(orderEdited);
 
                         view.displaySingleOrderInfoHeader();
                         view.displaySingleOrderInfo((orderEdited));
@@ -261,5 +261,18 @@ public class FlooringMasteryController {
 
     }
 
+
+    /**Creates a backup txt file of all orders in the Files/Orders dir.
+     */
+    private void backupOrderFile(){
+
+        try {
+            view.getBackupBanner();
+            service.writeBackupOrderFile();
+            view.backupSuccess();
+        } catch (FlooringMasteryPersistenceException e) {
+            view.displayErrorMessage(e.getMessage());
+        }
+    }
 
 }

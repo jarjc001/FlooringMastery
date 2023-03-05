@@ -3,11 +3,16 @@ package com.FlooringMastery.dao;
 import com.FlooringMastery.dto.*;
 import com.FlooringMastery.dto.FileHeaders;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 public interface FlooringMasteryDao {
+
+    /**Method to get orderMap out of DAO
+     * @return orderMap*/
+    Map<Integer, Order> getOrderMap();
 
     /**Method to get stateTaxMap out of DAO
      * @return stateTaxMap*/
@@ -67,7 +72,7 @@ public interface FlooringMasteryDao {
     void writeOrderFile(String fileName) throws FlooringMasteryPersistenceException;
 
 
-    /**Used to write all the orders the Order Map to an Order .txt file
+    /**Used to write all the orders in Files/Orders dir to a single Backup .txt file
      */
     void writeBackupOrderFile() throws FlooringMasteryPersistenceException;
 
@@ -75,14 +80,14 @@ public interface FlooringMasteryDao {
      * Appending it, not overwriting it.
      * @param splitLineList ListArray created from readFile method
      */
-    void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date);
+    void appendToBackupOrderFile(List<String[]> splitLineList, LocalDate date) throws FlooringMasteryPersistenceException;
 
 
     /**Adds a given Order to the order File of its date, only if
      * the given order passes all the business rules.
      * @param addOrder Order object to be added
      */
-    void createNewOrder(Order addOrder) throws FlooringMasteryPersistenceException;
+    void createNewOrder(Order addOrder, String fileName) throws FlooringMasteryPersistenceException;
 
     /**Configures an Order object, to be added to file, to have all the values calculated
      * @return the new Order Object with calculated values
@@ -93,7 +98,7 @@ public interface FlooringMasteryDao {
     /**Adds new order to the Order map, then writes the Map into the corresponding Order file
      * @param order order object that is being added to Map
      */
-    void addOrderToFile(Order order) throws FlooringMasteryPersistenceException;
+    void addOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException;
 
 
     /**Reads the order file of the given Order Date into the orderMap then unmarshells it to the Map
@@ -102,7 +107,7 @@ public interface FlooringMasteryDao {
      * @param orderDate date of the Order to display
      * @throws FlooringMasteryPersistenceException missing file
      */
-    void SearchOrderDateFile(LocalDate orderDate) throws FlooringMasteryPersistenceException;
+    void SearchOrderDateFile(LocalDate orderDate, String fileName) throws FlooringMasteryPersistenceException;
 
 
     /**
@@ -123,5 +128,5 @@ public interface FlooringMasteryDao {
      * corresponding Order file
      * @param order order being removed
      */
-    void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException;
+    void removeOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException;
 }

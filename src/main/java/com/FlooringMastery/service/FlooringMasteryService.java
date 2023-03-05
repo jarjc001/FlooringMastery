@@ -65,6 +65,10 @@ public interface FlooringMasteryService {
      */
     void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException;
 
+    /**Used to write all the orders in Files/Orders dir to a single Backup .txt file
+     */
+    void  writeBackupOrderFile() throws FlooringMasteryPersistenceException;
+
     /** It will test the given Order on Order Test rules:
      * Order Date - must be in the future.
      * If any fail, an exception is given

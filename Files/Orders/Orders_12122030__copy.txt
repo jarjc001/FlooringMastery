@@ -1,7 +1,0 @@
-OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
-3,ree,CA,25.00,Wood,500.00,5.15,4.75,2575.00,2375.00,1237.50,6187.50
-4,timmy,WA,9.25,Wood,400.00,3.50,4.15,1400.00,1660.00,283.05,3343.05
-6,timmy,WA,9.25,Wood,400.00,3.50,4.15,1400.00,1660.00,283.05,3343.05
-7,toowowo,CA,4.45,Wood,2000.00,3.50,4.15,7000.00,8300.00,680.85,15980.85
-8,hhhhhhh,CA,4.45,Wood,400.00,3.50,4.15,1400.00,1660.00,136.17,3196.17
-9,ee,WA,9.25,Wood,405.00,3.50,4.15,1417.50,1680.75,286.59,3384.84

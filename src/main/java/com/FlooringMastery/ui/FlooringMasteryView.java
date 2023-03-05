@@ -257,12 +257,19 @@ public class FlooringMasteryView {
 
 
 
+    //<<Backup>>
+
+    public void getBackupBanner(){
+        io.print("-+*+-+*+-+*+-   Export Backup   -+*+-+*+-+*+-");
+    }
 
 
-
-
-
-
+    /**Tells user that the Backup was Successfully Created*/
+    public void backupSuccess () {
+        io.print("");
+        io.print("Backup Successfully Created");
+        io.print("");
+    }
 
 
 
