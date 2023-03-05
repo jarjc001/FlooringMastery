@@ -119,18 +119,9 @@ public interface FlooringMasteryDao {
     Order findOrderNumber(int orderNumber) throws FlooringMasteryPersistenceException;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**Removes an order from Order Map, then writes the Map onto its
+     * corresponding Order file
+     * @param order order being removed
+     */
+    void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException;
 }

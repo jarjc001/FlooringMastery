@@ -131,20 +131,6 @@ public class Order {
         this.orderCal = new OrderCal(this.area,this.productType,this.state);
     }
 
-    /**Creates Deep copy of an Order object */
-    public void deepCopyOrder(Order orderToCopy){
-        this.setOrderNumber(orderToCopy.getOrderNumber());
-        this.setCustomerName(orderToCopy.getCustomerName());
-        this.setState(orderToCopy.getState());
-        this.setProductType(orderToCopy.getProductType());
-        this.setArea(orderToCopy.getArea());
-        this.setOrderDate(orderToCopy.getOrderDate());
-
-        this.configOrderCal();
-
-    }
-
-
 
     /**for testing*/
     @Override

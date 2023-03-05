@@ -412,7 +412,16 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-    //<<edit>>
+    //<<remove>>
+
+    @Override
+    public void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException {
+        String fileName = getOrderFileName(order.getOrderDate());
+        //removes order from map
+        orderMap.remove(order.getOrderNumber(),order);
+        //writes order map into file
+        writeOrderFile(fileName);
+    }
 
 
 

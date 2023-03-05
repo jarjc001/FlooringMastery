@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="finished display orders,&#10;started edit order">
-      <change afterPath="$PROJECT_DIR$/Files/Data/NextOrderNumber.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Files/Orders/Orders_12122030__copy.txt" afterDir="false" />
+    <list default="true" id="22917d34-1fac-49e1-b9e5-c5a58e510eab" name="Changes" comment="finished edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Files/Orders/Orders_12122030.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Files/Orders/Orders_12122030.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/controller/FlooringMasteryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/dto/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/service/FlooringMasteryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/FlooringMasteryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIOConsoleImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/FlooringMastery/ui/UserIOConsoleImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -197,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677961811442</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="finished edit">
+      <created>1677980295121</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1677980295121</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -214,28 +216,10 @@
     <MESSAGE value="finished add&#10;edited read file to remove any lines with missing lines" />
     <MESSAGE value="edit dao and service layer" />
     <MESSAGE value="finished display orders,&#10;started edit order" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished display orders,&#10;started edit order" />
+    <MESSAGE value="finished edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished edit" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java</url>
-          <line>368</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java</url>
-          <line>366</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/FlooringMastery/dao/FlooringMasteryDaoFileImpl.java</url>
-          <line>364</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="orderToEdit" />

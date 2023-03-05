@@ -56,7 +56,7 @@ public class FlooringMasteryController {
                     editOrder();
                     break;
                 case 4:
-                    System.out.println("Remove an Order");
+                    removeOrder();
                     break;
                 case 5:
                     System.out.println("Export All Data");  //optional
@@ -169,10 +169,11 @@ public class FlooringMasteryController {
     }
 
 
-    /**Asks the user what the date and the order number of the Order they want ot edit.
+    /**Asks the user what the date and the order number of the Order they want to edit.
      * If it exists, it will then prompt user for each piece of order data but display the existing data.
      * If the user hits Enter without entering data, it will leave the existing data in place.
-     * If the info passes the business rules,it will prompt for whether the edit should be saved.
+     * If the info passes the business rules, it will display the newly edited order details.
+     * Then it will prompt for whether the edit should be saved.
      * If yes, it will be saved to its order file
      */
     private void editOrder(){
@@ -227,6 +228,36 @@ public class FlooringMasteryController {
             } catch (FlooringMasteryPersistenceException e) {   //if the date or order number is wrong
                 view.displayErrorMessage(e.getMessage());
             }
+
+    }
+
+
+    /**Asks the user what the date and the order number of the Order they want to remove.
+     * If it exists, it will show the details of the order,
+     * it will prompt for whether to remove the order.
+     * If yes, it will remove it from its order file
+     */
+    private void removeOrder(){
+        view.getRemoveOrderBanner();
+        Order orderToRemove = service.createEmptyOrder();
+
+        try {
+            //gets order to edit
+            service.SearchOrderDateFile(view.askOrderDate());
+            orderToRemove = service.getOrderFromNumber(view.askOrderNumber());
+
+            view.displaySingleOrderInfoHeader();
+            view.displaySingleOrderNumber(orderToRemove);
+            view.displaySingleOrderInfo((orderToRemove));
+
+            if(view.wantToRemoveOrder()){
+                service.removeOrderToFile(orderToRemove);
+            }
+
+        } catch (FlooringMasteryPersistenceException e) {
+            view.displayErrorMessage(e.getMessage());
+        }
+
 
     }
 

@@ -59,6 +59,12 @@ public interface FlooringMasteryService {
      */
     void addOrderToFile(Order order) throws FlooringMasteryPersistenceException;
 
+    /**Removes an order from Order Map, then writes the Map onto its
+     * corresponding Order file
+     * @param order order being removed
+     */
+    void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException;
+
     /** It will test the given Order on Order Test rules:
      * Order Date - must be in the future.
      * If any fail, an exception is given

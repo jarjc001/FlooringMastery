@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +51,7 @@ public class FlooringMasteryView {
     /**Print details of an Order banner*/
     public void displaySingleOrderInfoHeader() {
         io.print("Order Details");
+        io.print("-+*+-+*+-+*+-+*+-+*+-+*+-");
     }
 
     /**Print order number of an Order
@@ -57,15 +59,7 @@ public class FlooringMasteryView {
      */
     public void displaySingleOrderNumber(Order order) {
         io.print("Order Number: " + order.getOrderNumber());
-    }
 
-    /**Print order date of an Order
-     * @param order Order to display Order date
-     */
-    public void displaySingleOrderDate(Order order) {
-        io.print("Order Date: " + order.getOrderDate().getMonthValue()+"/"+
-                                order.getOrderDate().getDayOfMonth()+"/"+
-                                order.getOrderDate().getYear());
     }
 
     /**Print details of an Order
@@ -146,7 +140,7 @@ public class FlooringMasteryView {
      * @return date of the order
      */
     public LocalDate askOrderDate (){
-        return io.readLocalDate("Please enter Date of Orders to Display");
+        return io.readLocalDate("Please enter Date");
     }
 
     /**Displays the info of the orders for a give List arrar
@@ -236,12 +230,6 @@ public class FlooringMasteryView {
     }
 
 
-
-
-
-
-
-
     /**
      * Prompts user if they want to add the Order to File
      * @return true if yes, false if no
@@ -254,15 +242,18 @@ public class FlooringMasteryView {
 
 
 
+    //<<Remove>>
+    public void getRemoveOrderBanner(){
+        io.print("-+*+-+*+-+*+-   Remove Order   -+*+-+*+-+*+-");
+    }
 
-
-
-
-
-
-
-
-
+    /**
+     * Prompts user if they want to add the Order to File
+     * @return true if yes, false if no
+     */
+    public boolean wantToRemoveOrder(){
+        return io.readYesOrNo("Do you want to Remove Order (Y/N):");
+    }
 
 
 

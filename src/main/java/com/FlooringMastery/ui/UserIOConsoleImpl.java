@@ -102,9 +102,10 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public boolean readYesOrNo(String prompt){
-        String answer = this.readString(prompt).toUpperCase();
+        String answerString = this.readString(prompt).toUpperCase();
+        char answerChar = answerString.charAt(0);
 
-        if (answer.equals("Y") ){
+        if (answerChar == 'Y' ){
             return true;
         }
         return false;

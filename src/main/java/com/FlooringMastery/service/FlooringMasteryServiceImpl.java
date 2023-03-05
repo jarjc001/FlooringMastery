@@ -91,6 +91,14 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
         dao.addOrderToFile(order);
     }
 
+    //<<Remove>>
+
+
+    @Override
+    public void removeOrderToFile(Order order) throws FlooringMasteryPersistenceException {
+        dao.removeOrderToFile(order);
+    }
+
 
 
 
