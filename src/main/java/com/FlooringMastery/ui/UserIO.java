@@ -56,7 +56,7 @@ public interface UserIO {
          * Takes in a String prompt to display to the user on the console,
          * Will then Read a BigDecimal input the user enters into the console,
          * then will return it as a BigDecimal with scale of 2 and have rounding mode
-         * og HALF_UP
+         * og HALF_UP. If input is "", it will return zero.
          * @param prompt - String prompt to be displayed on console
          * @return - the answer of the prompt as a BigDecimal
          */

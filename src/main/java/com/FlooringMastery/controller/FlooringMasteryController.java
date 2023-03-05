@@ -53,7 +53,7 @@ public class FlooringMasteryController {
                     createOrder();  //undo somehow
                     break;
                 case 3:
-                    System.out.println("3.Edit an Order");
+                    editOrder();
                     break;
                 case 4:
                     System.out.println("Remove an Order");
@@ -98,8 +98,8 @@ public class FlooringMasteryController {
 
     /**Methods asks User to add pieces of order info.
      * Then an order is created using info.
-     * If the info passes the business rules,
-     * it will be added to the corresponding Order file based on it's date
+     * If the info passes the business rules, it will prompt for whether to save the new Order.
+     * If yes, it will be added to the corresponding Order file based on it's date
      */
     private void createOrder() {
         view.getAddOrderBanner();
@@ -115,7 +115,8 @@ public class FlooringMasteryController {
                 service.validateNewOrderDate(newOrder);
                 //Tests Name
                 view.getNewOrderName(newOrder);
-                service.validateNewOrderName(newOrder);
+                service.validateNewOrderNameCharacters(newOrder);
+                service.validateNewOrderNameBlank(newOrder);
                 //Name State
                 view.getNewOrderState(newOrder);
                 service.validateNewOrderState(newOrder);
@@ -127,14 +128,14 @@ public class FlooringMasteryController {
                 service.validateNewOrderArea(newOrder);
 
                 //configs the order info
-                service.configAddOrder(newOrder);
+                service.configOrder(newOrder);
 
                 view.displaySingleOrderInfoHeader();
                 view.displaySingleOrderInfo(newOrder);
 
                 if(view.wantToAddOrder()){
                     //create an actual order
-                    service.createOrder(newOrder);
+                    service.createNewOrder(newOrder);
                 }
                 hasErrors = false;
 
@@ -168,7 +169,66 @@ public class FlooringMasteryController {
     }
 
 
+    /**Asks the user what the date and the order number of the Order they want ot edit.
+     * If it exists, it will then prompt user for each piece of order data but display the existing data.
+     * If the user hits Enter without entering data, it will leave the existing data in place.
+     * If the info passes the business rules,it will prompt for whether the edit should be saved.
+     * If yes, it will be saved to its order file
+     */
+    private void editOrder(){
+        view.getEditOrderBanner();
+        boolean hasErrors = false;
+        Order orderToEdit = service.createEmptyOrder();
+        Order orderEdited = service.createEmptyOrder();
 
+            try {
+                //gets order to edit
+                service.SearchOrderDateFile(view.askOrderDate());
+                orderToEdit = service.getOrderFromNumber(view.askOrderNumber());
+
+                do{
+                    try {
+
+                        //Order number
+                        orderEdited.setOrderNumber(orderToEdit.getOrderNumber());
+                        orderEdited.setOrderDate(orderToEdit.getOrderDate());
+                        //Tests Name
+                        view.editOrderName((orderToEdit),orderEdited);
+                        service.validateNewOrderNameCharacters((orderEdited));
+                        //Name State
+                        view.editOrderState((orderToEdit),orderEdited);
+                        service.validateNewOrderState((orderEdited));
+                        //Name Product
+                        view.editOrderProduct((orderToEdit),orderEdited);
+                        service.validateNewOrderProduct((orderEdited));
+                        //Name Area
+                        view.editOrderArea((orderToEdit),orderEdited);
+                        service.validateNewOrderArea((orderEdited));
+
+                        //configs the order info
+                        service.configOrder((orderEdited));
+
+                        view.displaySingleOrderInfoHeader();
+                        view.displaySingleOrderInfo((orderEdited));
+                        if(view.wantToEditOrder()){
+                            //create an actual order
+                            service.addOrderToFile((orderEdited));
+                        }
+                        hasErrors = false;
+
+
+                    }catch (FlooringMasteryBusinessRulesException  e){  //if business rules are broken
+                        hasErrors = true;
+                        view.displayErrorMessage(e.getMessage());
+                    }
+
+                }while (hasErrors);
+
+            } catch (FlooringMasteryPersistenceException e) {   //if the date or order number is wrong
+                view.displayErrorMessage(e.getMessage());
+            }
+
+    }
 
 
 }

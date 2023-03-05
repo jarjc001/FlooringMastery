@@ -76,26 +76,26 @@ public class Order {
     //Getters
 
     public int getOrderNumber() {
-        return orderNumber;
+        return this.orderNumber;
     }
     public String getCustomerName() {
-        return customerName;
+        return this.customerName;
     }
     public Tax getState() {
-        return state;
+        return this.state;
     }
     public Product getProductType() {
-        return productType;
+        return this.productType;
     }
     public BigDecimal getArea() {
-        return area;
+        return this.area;
     }
     public LocalDate getOrderDate() {
-        return orderDate;
+        return this.orderDate;
     }  ///<-add a print tto string one maybe?
 
     public OrderCal getOrderCal() {
-        return orderCal;
+        return this.orderCal;
     }
 
 
@@ -125,11 +125,24 @@ public class Order {
 
 
 
+
     /**To calculate the Order info when a new Product type, state or Area are added to order*/
     public void configOrderCal(){
         this.orderCal = new OrderCal(this.area,this.productType,this.state);
     }
 
+    /**Creates Deep copy of an Order object */
+    public void deepCopyOrder(Order orderToCopy){
+        this.setOrderNumber(orderToCopy.getOrderNumber());
+        this.setCustomerName(orderToCopy.getCustomerName());
+        this.setState(orderToCopy.getState());
+        this.setProductType(orderToCopy.getProductType());
+        this.setArea(orderToCopy.getArea());
+        this.setOrderDate(orderToCopy.getOrderDate());
+
+        this.configOrderCal();
+
+    }
 
 
 

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
@@ -13,6 +14,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     /**Scanner object to take in console inputs from user*/
     final private Scanner sc = new Scanner(System.in);
+
 
     @Override
     public void print(String message) {
@@ -64,11 +66,19 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public BigDecimal readBigDecimal(String prompt) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(prompt);
-        BigDecimal input = sc.nextBigDecimal().setScale(2, RoundingMode.HALF_UP);
+        while (true) {
+            try {
+                String number = readString(prompt);
+                if (number.equals("")) {
+                    return BigDecimal.ZERO;
+                }
+                BigDecimal input = new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
+                return input;
+            } catch (Exception e) {
+                this.print("Input not a number, Try again");
+            }
+        }
 
-        return input;
     }
 
     @Override

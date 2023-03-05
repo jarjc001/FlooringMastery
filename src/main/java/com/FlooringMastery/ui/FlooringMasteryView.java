@@ -4,8 +4,10 @@ import com.FlooringMastery.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class FlooringMasteryView {
@@ -74,9 +76,9 @@ public class FlooringMasteryView {
         io.print("State: "+order.getState().getStateAbbreviation());
         io.print("TaxRate: "+order.getState().getTaxRate());
         io.print("ProductType: "+order.getProductType().getProductType());
-        io.print("Area: "+order.getArea());
-        io.print("CostPerSquareFoot: "+order.getProductType().getCostPerSquareFoot());
-        io.print("LaborCostPerSquareFoot: "+order.getProductType().getLaborCostPerSquareFoot());
+        io.print("Area: "+order.getArea()+" sq ft");
+        io.print("CostPerSquareFoot: "+order.getProductType().getCostPerSquareFoot()+" sq ft");
+        io.print("LaborCostPerSquareFoot: "+order.getProductType().getLaborCostPerSquareFoot()+" sq ft");
         io.print("MaterialCost: "+order.getOrderCal().getMaterialCost());
         io.print("LaborCost: "+order.getOrderCal().getLaborCost());
         io.print("Tax: "+order.getOrderCal().getTax());
@@ -96,7 +98,8 @@ public class FlooringMasteryView {
     }
 
    /**Prompts the user to fill in the Date of the Order they want to add,
-    * Then sets info to an empty Order object*/
+    * Then sets info to an empty Order object
+    */
     public void getNewOrderDate(Order order){
         order.setOrderDate(io.readLocalDate("Please enter Order Date"));
     }
@@ -121,7 +124,6 @@ public class FlooringMasteryView {
         order.setArea(io.readBigDecimal("Please enter Area in sq ft:"));
     }
 
-
     /**
      * Prompts user if they want to add the Order to File
      * @return true if yes, false if no
@@ -134,14 +136,14 @@ public class FlooringMasteryView {
 
 
 
-    //<<Display Orders
+    //<<Display Orders>>
 
     public void getDisplayOrderBanner(){
         io.print("-+*+-+*+-+*+-   Display Order   -+*+-+*+-+*+-");
     }
 
-    /**Prompts the user for the Date of the Orders they want to display,
-     * @return date of the orders to be displayed
+    /**Prompts the user for the Date of the Order,
+     * @return date of the order
      */
     public LocalDate askOrderDate (){
         return io.readLocalDate("Please enter Date of Orders to Display");
@@ -157,6 +159,98 @@ public class FlooringMasteryView {
             displaySingleOrderInfo(order);
         }
     }
+
+
+    //<<edit order>>
+
+    public void getEditOrderBanner(){
+        io.print("-+*+-+*+-+*+-   Edit Order   -+*+-+*+-+*+-");
+    }
+
+    /**Prompts the user for order number
+     * @return Order number
+     */
+    public int askOrderNumber (){
+        return io.readInt("Please enter the Order Number");
+    }
+
+
+
+    /**Prompts the user to fill in the Customer Name they want to change the order to,
+     * it will display the customer name already in place.
+     * If left Blank and edit, order won't be edited
+     * @param orderToEdit The order to be edited
+     * @param orderEdited the order after being edited */
+    public void editOrderName(Order orderToEdit,Order orderEdited){
+
+        String name = io.readString(("Please enter Customer Name ("+orderToEdit.getCustomerName() +"):"));
+        if(!name.equals("")) {
+            orderEdited.setCustomerName(name);
+        }else {
+            orderEdited.setCustomerName(orderToEdit.getCustomerName());
+        }
+
+    }
+    /**Prompts the user to fill in the State of the Order they want to change the order to,
+     * it will display the State already in place.
+     * If left Blank and edit, order won't be edited
+     * @param orderToEdit The order to be edited
+     * @param orderEdited the order after being edited */
+    public void editOrderState(Order orderToEdit,Order orderEdited){
+
+        String state =io.readString(("Please enter State ("+orderToEdit.getState().getStateAbbreviation() +"):")).toUpperCase();
+        if(!state.equals("")) {
+            orderEdited.getState().setStateAbbreviation(state);
+        }else {
+            orderEdited.getState().setStateAbbreviation(orderToEdit.getState().getStateAbbreviation());
+        }
+
+    }
+    /**Prompts the user to fill in the Product Type of the Order they want to change the order to,
+     * it will display the Product type already in place.
+     * If left Blank and edit, order won't be edited
+     * @param orderToEdit The order to be edited
+     * @param orderEdited the order after being edited */
+    public void editOrderProduct(Order orderToEdit,Order orderEdited){
+        String product = io.readString(("Please enter Product Type ("+orderToEdit.getProductType().getProductType() +"):"));
+        if(!product.equals("")) {
+            orderEdited.getProductType().setProductType(product);
+        }else{
+            orderEdited.getProductType().setProductType(orderToEdit.getProductType().getProductType());
+        }
+
+    }
+    /**Prompts the user to fill in the Area of the Order they want to change the order to,
+     * it will display the Area already in place.
+     * If left Blank and edit, order won't be edited
+     * @param orderToEdit The order to be edited
+     * @param orderEdited the order after being edited */
+    public void editOrderArea(Order orderToEdit,Order orderEdited){
+            BigDecimal area = io.readBigDecimal(("Please enter Area in sq ft ("+orderToEdit.getArea() +"):"));
+            if(!Objects.equals(area, BigDecimal.ZERO)) {
+                orderEdited.setArea(area);
+            }else {
+                orderEdited.setArea(orderToEdit.getArea());
+            }
+
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Prompts user if they want to add the Order to File
+     * @return true if yes, false if no
+     */
+    public boolean wantToEditOrder(){
+        return io.readYesOrNo("Do you want to Save Edit (Y/N):");
+    }
+
+
 
 
 

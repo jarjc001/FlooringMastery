@@ -33,13 +33,13 @@ public class Product {
     //Getters
 
     public String getProductType() {
-        return productType;
+        return this.productType;
     }
     public BigDecimal getCostPerSquareFoot() {
-        return costPerSquareFoot;
+        return this.costPerSquareFoot;
     }
     public BigDecimal getLaborCostPerSquareFoot() {
-        return laborCostPerSquareFoot;
+        return this.laborCostPerSquareFoot;
     }
 
 

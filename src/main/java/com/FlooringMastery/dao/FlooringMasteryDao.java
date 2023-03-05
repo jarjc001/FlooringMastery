@@ -21,6 +21,9 @@ public interface FlooringMasteryDao {
     /**Finds the next available Order number in the current Order Map*/
     void findNextOrderNumber();
 
+    /**Assigns the next available order number to order object */
+    void assignOrderNumber(Order order);
+
     /**Gets the Order file name from its order date
      *
      * @param orderDate file name as Orders_MMddyyyy.txt
@@ -79,19 +82,18 @@ public interface FlooringMasteryDao {
      * the given order passes all the business rules.
      * @param addOrder Order object to be added
      */
-    void createOrder(Order addOrder) throws FlooringMasteryPersistenceException;
+    void createNewOrder(Order addOrder) throws FlooringMasteryPersistenceException;
 
     /**Configures an Order object, to be added to file, to have all the values calculated
      * @return the new Order Object with calculated values
      */
-    void configAddOrder(Order order);
+    void configOrder(Order order);
 
 
     /**Adds new order to the Order map, then writes the Map into the corresponding Order file
      * @param order order object that is being added to Map
-     * @param fileName name of file being written in
      */
-    void addOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException;
+    void addOrderToFile(Order order) throws FlooringMasteryPersistenceException;
 
 
     /**Reads the order file of the given Order Date into the orderMap then unmarshells it to the Map

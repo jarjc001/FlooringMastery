@@ -40,21 +40,21 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
 
    // <<Add order>>
 
-
     @Override
     public Order createEmptyOrder(){
         return new Order();
     }
 
+
     @Override
-    public void createOrder(Order order) throws FlooringMasteryPersistenceException {
-        dao.createOrder(order);
+    public void createNewOrder(Order order) throws FlooringMasteryPersistenceException {
+        dao.createNewOrder(order);
     }
 
 
     @Override
-    public void configAddOrder(Order order){
-        dao.configAddOrder(order);
+    public void configOrder(Order order){
+        dao.configOrder(order);
     }
 
 
@@ -68,7 +68,7 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
     }
 
 
-    //<<display>>
+    //<<display orders>>
 
     @Override
     public List<Order> getListOrders(){
@@ -83,6 +83,12 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
     @Override
     public Order getOrderFromNumber(int orderNumber) throws FlooringMasteryPersistenceException {
         return dao.findOrderNumber(orderNumber);
+    }
+
+
+    @Override
+    public void addOrderToFile(Order order) throws FlooringMasteryPersistenceException{
+        dao.addOrderToFile(order);
     }
 
 
@@ -123,9 +129,8 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
     }
 
     @Override
-    public void validateNewOrderName(Order order) throws FlooringMasteryBusinessRulesException {
+    public void validateNewOrderNameCharacters(Order order) throws FlooringMasteryBusinessRulesException {
         boolean failTest = false;
-
 
         //removes space from name
         String nameNoSpace = order.getCustomerName().replace(" ", "");
@@ -142,14 +147,25 @@ public class FlooringMasteryServiceImpl implements FlooringMasteryService{
                 failTest = true;
                 break;
             }
-
         }
 
+        //Name is empty,
+        if ( failTest ){
+            throw new FlooringMasteryBusinessRulesException(
+                    "ERROR - Customer Name is limited to characters [a-z][0-9][,][.].");
+        }
+    }
+
+
+    @Override
+    public void validateNewOrderNameBlank(Order order) throws FlooringMasteryBusinessRulesException {
+        //removes space from name
+        String nameNoSpace = order.getCustomerName().replace(" ", "");
 
         //Name is empty,
-        if (nameNoSpace.length() <1 || failTest ){
+        if (nameNoSpace.length() <1){
             throw new FlooringMasteryBusinessRulesException(
-                    "ERROR - Customer Name must not be blank and is limited to characters [a-z][0-9][,][.].");
+                    "ERROR - Customer Name must not be blank.");
         }
     }
 

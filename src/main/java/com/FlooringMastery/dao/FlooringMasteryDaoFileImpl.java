@@ -25,6 +25,9 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     private final String DELIMITER = ",";
 
 
+    //<<Maps>>
+
+
     /**Map that will temporarily hold Order info from an order .txt file.
      * It will allow the info to be displayed and edited. Then the Map will be
      * used to overwrite the same order .txt file.
@@ -57,6 +60,10 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
+
+    //<<Order numbers>>
+
+
     /** Used to keep track of next available order number*/ //available
     private static int nextavailableOrderNumber= 1;
 
@@ -74,15 +81,30 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     }
 
+    @Override
+    public void assignOrderNumber(Order order){
+        //sets order number
+        findNextOrderNumber();
+        order.setOrderNumber(nextavailableOrderNumber);
+    }
+
+    @Override
+    public Order findOrderNumber(int orderNumber) throws FlooringMasteryPersistenceException {
+
+            Order order = orderMap.get(orderNumber);
+            if(order==null) {
+                throw new FlooringMasteryPersistenceException("No Order with this Order Number");
+            }
+            return order;
+    }
 
 
+
+    //<<file name>>
 
     @Override
     public String getOrderFileName(LocalDate orderDate){
         return "Orders_"+orderDate.format(DateTimeFormatter.ofPattern("MMddyyyy"))+".txt";
-//                .getMonthValue()+
-//                orderDate.getDayOfMonth()+
-//                orderDate.getYear()+".txt";
     }
 
 
@@ -318,29 +340,17 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
 
 
-    //<<add order>>
+    //<<add order to file>>
+
+
 
     @Override
-    public void createOrder(Order order) throws FlooringMasteryPersistenceException {
-        String fileName = getOrderFileName(order.getOrderDate());
-        try {
-            //Read Order file of given order's date
-            readOrderFile(fileName, order.getOrderDate());
-        }catch (FlooringMasteryPersistenceException e){
-            //won't do anything if the order file for the date does not excites yet
-        }finally {
-            //Add given order to order file
-            addOrderToFile(order,fileName);
-        }
-    }
-
-    @Override
-    public void configAddOrder(Order order){
-        //change the objets empty state object to the state object from the map
+    public void configOrder(Order order){
+        //change the empty state object to the state object from the map
         Tax stateConfig = getStateTaxMap().get(order.getState().getStateAbbreviation());
         order.setState(stateConfig);
 
-        //change the objets empty product object to the product object from the map
+        //change the empty product object to the product object from the map
         Product productConfig = getProductTypeMap().get(order.getProductType().getProductType());
         order.setProductType(productConfig);
 
@@ -349,11 +359,10 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     }
 
+
     @Override
-    public void addOrderToFile(Order order, String fileName) throws FlooringMasteryPersistenceException {
-        //sets order number
-        findNextOrderNumber();
-        order.setOrderNumber(nextavailableOrderNumber);
+    public void addOrderToFile(Order order) throws FlooringMasteryPersistenceException {
+        String fileName = getOrderFileName(order.getOrderDate());
         //places new order into map
         orderMap.put(order.getOrderNumber(),order);
         //writes order map into file
@@ -361,7 +370,26 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-    //find date file
+    //<<add new order>>
+
+
+    @Override
+    public void createNewOrder(Order order) throws FlooringMasteryPersistenceException {
+        String fileName = getOrderFileName(order.getOrderDate());
+        try {
+            //Read Order file of given order's date
+            readOrderFile(fileName, order.getOrderDate());
+        }catch (FlooringMasteryPersistenceException e){
+            //won't do anything if the order file for the date does not excites yet
+        }finally {
+            assignOrderNumber(order);
+            //Add given order to order file
+            addOrderToFile(order);
+        }
+    }
+
+
+    //<<find date file>>
 
 
     @Override
@@ -376,7 +404,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
-    //<<Search Order date>>
+    //<<Search Orders>>
 
     @Override
     public List<Order> getAllOrders(){
@@ -384,17 +412,12 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
     }
 
 
+    //<<edit>>
 
-// order
-    @Override
-    public Order findOrderNumber(int orderNumber) throws FlooringMasteryPersistenceException {
-        try{
-            return orderMap.get(orderNumber);
-        }catch (Exception e){
-            throw new FlooringMasteryPersistenceException("No Order with this Order Number",e);
-        }
 
-    }
+
+
+
 
     //@Override
     //public

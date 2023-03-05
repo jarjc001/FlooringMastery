@@ -16,7 +16,6 @@ public interface FlooringMasteryService {
     void readTaxAndProduct() throws FlooringMasteryPersistenceException;
 
 
-
     /**
      * Creates an empty Order Object
      * @return empty Order Object
@@ -26,12 +25,12 @@ public interface FlooringMasteryService {
     /**Adds a given Order to the order File of its date
      * @param addOrder Order object to be added
      */
-    void createOrder(Order addOrder) throws FlooringMasteryPersistenceException;
+    void createNewOrder(Order addOrder) throws FlooringMasteryPersistenceException;
 
     /**Configures an Order object, to be added to file, to have all the values calculated
      * @return the new Order Object with calculated values
      */
-    void configAddOrder(Order order);
+    void configOrder(Order order);
 
 
     /**Reads the order file of the given Order Date into the orderMap then unmarshells it to the Map
@@ -55,6 +54,11 @@ public interface FlooringMasteryService {
      * @return Order object */
     Order getOrderFromNumber(int orderNumber) throws FlooringMasteryPersistenceException;
 
+    /**Adds new order to the Order map, then writes the Map into the corresponding Order file
+     * @param order order object that is being added to Map
+     */
+    void addOrderToFile(Order order) throws FlooringMasteryPersistenceException;
+
     /** It will test the given Order on Order Test rules:
      * Order Date - must be in the future.
      * If any fail, an exception is given
@@ -62,10 +66,16 @@ public interface FlooringMasteryService {
     void validateNewOrderDate(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on Customer Test rules:
-     * Customer Name - Not blank and is limited to characters [a-z][0-9][,][.].
+     * Customer Name - is limited to characters [a-z][0-9][,][.].
      * If any fail, an exception is given
      * @param order Order object to be tested */
-    void validateNewOrderName(Order order) throws FlooringMasteryBusinessRulesException;
+    void validateNewOrderNameCharacters(Order order) throws FlooringMasteryBusinessRulesException;
+
+    /** It will test the given Order on Customer Test rules:
+     * Customer Name - is not Blank
+     * If any fail, an exception is given
+     * @param order Order object to be tested */
+    void validateNewOrderNameBlank(Order order) throws FlooringMasteryBusinessRulesException;
 
     /** It will test the given Order on State Test rules:
      * State - in given Taxes.txt.
