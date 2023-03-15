@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,bob,TX,4.45,Wood,500.00,5.15,4.75,2575.00,2375.00,220.28,5170.28
