@@ -255,7 +255,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     @Override
     public void writeOrderFile(String fileName) throws FlooringMasteryPersistenceException {
-        File dataOut = new File(fileName);
+        File dataOut = new File("./Files/Orders/"+fileName);
 
         FileWriter fileWriter;
 

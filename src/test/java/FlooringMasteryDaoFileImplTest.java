@@ -1,6 +1,7 @@
 import com.FlooringMastery.dao.FlooringMasteryDaoFileImpl;
 import com.FlooringMastery.dao.FlooringMasteryPersistenceException;
 import com.FlooringMastery.dto.Order;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,8 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.testng.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FlooringMasteryDaoFileImplTest {
 
@@ -117,14 +117,14 @@ public class FlooringMasteryDaoFileImplTest {
         //test if the edited order is in the map and replaces the old one
         Order retrievedOrderFromMap = testDao.getOrderMap().get(orderToEdit.getOrderNumber());
         assertEquals(retrievedOrderFromMap, editedOrder, "Checking if the edited Order was added to map.");
-        assertNotEquals(retrievedOrderFromMap, orderToEdit, "Checking if the old Order was not in the map.");
+        Assertions.assertNotEquals(retrievedOrderFromMap, orderToEdit, "Checking if the old Order was not in the map.");
 
 
         //test if the edited order is in the file and replaces the old one
         testDao.readOrderFile(testFile,testDate);
         Order retrievedOrderFromFile = testDao.getOrderMap().get(orderToEdit.getOrderNumber());
         assertEquals(retrievedOrderFromFile, editedOrder, "Checking if the edited Order was added to file.");
-        assertNotEquals(retrievedOrderFromFile, orderToEdit, "Checking if the old Order was not in the file.");
+        Assertions.assertNotEquals(retrievedOrderFromFile, orderToEdit, "Checking if the old Order was not in the file.");
 
     }
 
