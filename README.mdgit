@@ -16,11 +16,6 @@ Export All Data	6
 Quit	6
 Stretch Goal: Export Data	7
 Additional Guidance	7
-Tips	8
-Criteria	8
-
-
-
 
 
  
@@ -143,27 +138,9 @@ Additional Guidance
 •	Please submit your project plan in addition to your code. This can be flowcharts, outlines, pseudocode, or any other documentation and planning technique.
 •	You must unit test your DAO and ServiceLayers.
  
-Tips
-1.	Build this application following the process outlined in the Agile Approach Checklist for Console Applications (as specified in the Rules of Flooring Mastery section above). This process will help you approach the project in a logical and orderly manner.
-2.	If you get stuck, ask an instructor for general guidance on what you should be looking for. The instructor will not write the code for you, but advice is always free.
-3.	There are places where this specification has been left open to interpretation: this is intentional. When on the job you will frequently have to ask clarifying questions to business stakeholders. Be sure to ask an instructor for general guidance on any features you do not understand.
-4.	Try to work on pieces of functionality in isolation and test them before moving on. Working on too large of a chunk at once leads to difficulties in troubleshooting and poor separation of concerns.
-5.	Think, then code. If you do not have a plan for each workflow, you will not be able to complete this project.
-6.	Use prior code samples and assessments as inspiration for this project. At this point in the course, you should be aware that there are patterns for creating a layered data-driven application.
-Criteria
- 	Criteria	Meets Expectations	Needs Improvement	No Credit
-1	Specifications 	20 	10 	0 
-2	Code Style	10 	5 	0 
-3	DI and MVC	5 	3 	0 
-4	I/O Operations 	10 	5 	0 
-5	Data Types	5 	3 	0 
-6	Service Layer	5 	3 	0 
-7	Lambdas and Streams	5 	3 	0 
-8	Unit Tests	5 	3 	0 
-9	Data Storage	5 	3 	0 
-10	Input Validation	5 	3 	0 
-11	Exception Handling 	5 	3 	0 
-12	Basic Concepts	5 	3 	0 
-13	Intermediate Concepts 	5 	3 	0 
-14	Application Architecture:	5 	3 	0 
+
+Feedback
+Graded by Eugene O'Regan
+100.00 %
+Comments:Great self initiative shown. Whilst answering all of the remit, still was able to demonstrate other concepts which demanded research. 
 
