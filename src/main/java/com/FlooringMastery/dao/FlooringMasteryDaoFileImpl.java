@@ -108,7 +108,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     @Override
     public String getOrderFileName(LocalDate orderDate){
-        return "Orders_"+orderDate.format(DateTimeFormatter.ofPattern("MMddyyyy"))+".txt";
+        return "Orders/Orders_"+orderDate.format(DateTimeFormatter.ofPattern("MMddyyyy"))+".txt";
     }
 
 
@@ -125,7 +125,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                 dataIn = new File("./Files/Data/"+fileName);
                 break;
             case ORDER:
-                dataIn = new File("./Files/Orders/"+fileName);
+                dataIn = new File("./Files/"+fileName);
                 break;
             default:
                 return null;
@@ -255,7 +255,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
 
     @Override
     public void writeOrderFile(String fileName) throws FlooringMasteryPersistenceException {
-        File dataOut = new File("./Files/Orders/"+fileName);
+        File dataOut = new File("./Files/"+fileName);
 
         FileWriter fileWriter;
 
@@ -327,7 +327,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao{
                     LocalDate orderDate = LocalDate.parse(getFileDate, DateTimeFormatter.ofPattern("MMddyyyy"));
 
 
-                    List<String[]> singleOrderList = readFile(file.getName(), FileHeaders.ORDER);
+                    List<String[]> singleOrderList = readFile(("Orders/"+file.getName()), FileHeaders.ORDER);
 
                     appendToBackupOrderFile(singleOrderList,orderDate);
 
